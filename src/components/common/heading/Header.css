@@ -36,3 +36,77 @@ header ul li a:hover{
     color: white;
     clip-path: polygon(10% 0, 100% 0, 100% 100%,0 100%);
 }
+.toggle{
+    display: none;
+}
+
+/*---------Responsive@768px--------------*/
+@media screen and (max-width: 768px) {
+    .start{
+        justify-content: center;
+        text-align: center;
+        min-width: 710px;
+        clip-path: none;
+        background-color: rgba(195, 205, 205, 0.411);
+    }
+    .header{
+        margin: 0;
+        background-color: #1eb2a6;
+        position: relative;
+    }
+    header ul.flexSB{
+        display: none;
+    }
+    header ul li{
+        margin-bottom: 20px;
+    }
+    .toggle{
+        display: block;
+        background: none;
+        color: white;
+        font-size: 30px;
+        position: absolute;
+        right: 0px;
+        top: 80px;
+        
+    }
+    .mobile-nav{
+        position: absolute;
+        left: 0;
+        width: 100%;
+        background-color: #1eb2a6;
+    }
+}
+
+/*---------Responsive@320px--------------*/
+@media screen and (max-width: 320px) {
+   .start{
+    margin-left: -30px;
+    min-width: 320px;
+   }
+    .header{
+        margin: 0;
+        background-color: #1eb2a6;
+        position: relative;
+    }
+    header ul.flexSB{
+        display: none;
+    }
+    header ul li{
+        margin-bottom: 20px;
+    }
+    .toggle{
+        display: block;
+        background: none;
+        color: white;
+        font-size: 30px;
+        position: absolute;
+        top: 100px;
+    }
+    .mobile-nav{
+        position: absolute;
+        left: 0;
+        width: 100%;
+        background-color: #1eb2a6;
+    }
+}
