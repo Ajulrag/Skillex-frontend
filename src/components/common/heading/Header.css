@@ -47,6 +47,7 @@ header ul li a:hover{
         text-align: center;
         min-width: 710px;
         clip-path: none;
+        background-color: rgba(195, 205, 205, 0.411);
     }
     .header{
         margin: 0;
