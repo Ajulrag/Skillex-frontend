@@ -17,6 +17,7 @@ const Header = () => {
                     <li><Link to='/Team'>Team</Link></li>
                     <li><Link to='/pricing'>Pricing</Link></li>
                     <li><Link to='/contact'>Contact Us</Link></li>
+                    <li><Link to='/becomeInstructor'>Become Instructor</Link></li>
                 </ul>
                 <div className="start">
                     <div className="button">GET STARTED</div>

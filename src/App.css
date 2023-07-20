@@ -7,8 +7,7 @@
 }
 body{
     font-family: 'Roboto', sans-serif;
-    /* background-color: #f8f8f8; */
-    background-color: #858484;
+    background-color: #f8f8f8;
 }
 .container{
     max-width: 85%;
@@ -41,4 +40,47 @@ li{
 }
 button{
     border: none;
+}
+.row{
+    width: 50%;
+}
+button{
+    padding: 17px 30px;
+    background-color: #ffffff;
+    color: #1eb2a6;
+    font-weight: 600;
+    border: none;
+    margin: 30px 10px 0 0;
+    border-radius: 3px;
+    cursor: pointer;
+    box-sizing: 0 24px 36px -11px rgba(0 0 0/9%);
+
+}
+button i{
+    margin-left: 20px;
+}
+button:hover{
+    box-shadow: none;
+}
+.primary-btn{
+    background-color: #1eb2a6;
+    color: #ffffff;
+}
+#heading{
+    text-align: center;
+}
+#heading h3{
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #1eb2a6;
+    text-transform: uppercase;
+}
+#heading h1{
+    font-size: 35px;
+    margin: 20px 0;
+    text-transform: capitalize;
+}
+p{
+    line-height: 30px;
+    font-size: 18px;
 }
