@@ -39,3 +39,6 @@ a{
 li{
     list-style-type: none;
 }
+button{
+    border: none;
+}
