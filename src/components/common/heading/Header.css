@@ -9,6 +9,10 @@
 .head .icon{
     margin-left: 10px;
 }
+#ll{
+    margin-left: 40px;
+    color: #1eb2a6;
+}
 
 /*---------------------header----------------*/
 header{

@@ -1,6 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import UserLayout from './components/layout/UserLayout';
+import Login from './pages/user/Login'
 import Home from './components/home/hero/Home';
 import About from './components/about/About';
 import axios from 'axios';
@@ -13,10 +14,14 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path='/' element={<UserLayout />} children={[
-            <Route path='/' element={<Home />}/>,
+          <Route path='/' exact element={<UserLayout />} children={[
+            <Route path='' element={<Home />}/>,
             <Route path='/about' element={<About />}/>
           ]} />
+        </Routes>
+        <Routes>
+
+          <Route path='/auth' exact element={<Login />} />
         </Routes>
       </Router>
     </>
