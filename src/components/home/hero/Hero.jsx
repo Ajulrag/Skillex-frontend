@@ -1,6 +1,7 @@
 import React from "react"
 import './Hero.css'
 import Title from "../../common/title/Title"
+import { Link } from "react-router-dom"
 
 const Hero = () => {
     return(
@@ -9,11 +10,13 @@ const Hero = () => {
             <div className="container">
                 <div className="row">
                     <Title subtitle='WELCOME TO SKILLEX' title='Best Online Education Platform'/>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus sit consectetur laudantium ullam earum! Libero maxime et labore consequatur vel velit, nemo eaque explicabo laudantium facere nesciunt maiores rerum obcaecati?</p>
+                    <p>What makes a child gifted and talented may not always be good grades in school, but a different way of looking at the world and learning.</p>
                     <div className="button">
-                        <button className="primary-btn">
-                            GET STARTED NOW <i className="fa fa-long-arrow-alt-right"></i>
+                        
+                       <button className="primary-btn"><Link to='/auth'>
+                            GET STARTED NOW <i className="fa fa-long-arrow-alt-right"></i>   </Link>
                         </button>
+                     
                         <button >
                             VIEW COURSES <i className="fa fa-long-arrow-alt-right"></i>
                         </button>  
