@@ -13,7 +13,8 @@ export const Head = () => {
                     <i className='fab fa-facebook-f icon'></i>
                     <i className='fab fa-instagram icon'></i>
                     <i className='fab fa-twitter icon'></i>
-                    <Link to='/auth'><i id='ll' class="fa-solid fa-right-to-bracket"></i></Link>
+                    
+                    <Link to='/auth'><i id='ll' className="fa-solid fa-right-to-bracket"></i></Link>
                 </div>
             </div>
         </section>

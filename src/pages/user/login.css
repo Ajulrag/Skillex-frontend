@@ -398,3 +398,9 @@ form.sign-in-form {
     left: 50%;
   }
 }
+#sign-in-btn{
+  padding: 0;
+}
+#sign-up-btn{
+  padding: 0;
+}
