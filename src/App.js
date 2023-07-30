@@ -11,6 +11,7 @@ import VerificationPage from './pages/user/Email';
 import AdminLayout from './components/admin/layout/AdminLayout';
 import AdminLogin from './pages/admin/AdminLogin';
 import Categories from './pages/admin/categories/categories';
+import CourseHome from './pages/user/CourseHome';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path='/' exact element={<UserLayout />} >
             <Route path='' element={<Home />}/>,
             <Route path='/about' element={<About />}/>,
+            <Route path='/courses' element={<CourseHome />}/>,
           </Route>
           
           <Route path='/verify-email/:token' element={<VerifyEmail />} />
