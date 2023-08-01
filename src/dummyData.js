@@ -45,7 +45,7 @@ export const homeAbout = [
   export const coursesCard = [
     {
       id: 1,
-      cover: "../images/courses/c1.png",
+      cover: "./images/courses/c1.png",
       coursesName: "Introducing to Software Engineering",
       courTeacher: [
         {
@@ -59,7 +59,7 @@ export const homeAbout = [
     },
     {
       id: 2,
-      cover: "../images/courses/c2.png",
+      cover: "./images/courses/c2.png",
       coursesName: "Enhancing Adobe Photoshop CC 2020 Skills",
       courTeacher: [
         {
@@ -87,7 +87,7 @@ export const homeAbout = [
     },
     {
       id: 4,
-      cover: "../images/courses/c4.png",
+      cover: "./images/courses/c4.png",
       coursesName: "Introducing to Programming with WordPress",
       courTeacher: [
         {
@@ -101,7 +101,7 @@ export const homeAbout = [
     },
     {
       id: 5,
-      cover: "../images/courses/c5.png",
+      cover: "./images/courses/c5.png",
       coursesName: "Introducing to Programming with ReactJS",
       courTeacher: [
         {
@@ -115,7 +115,7 @@ export const homeAbout = [
     },
     {
       id: 6,
-      cover: "../images/courses/c6.png",
+      cover: "./images/courses/c6.png",
       coursesName: "Learn Frontend Programming Language",
       courTeacher: [
         {
@@ -129,7 +129,7 @@ export const homeAbout = [
     },
     {
       id: 7,
-      cover: "../images/courses/c7.png",
+      cover: "./images/courses/c7.png",
       coursesName: "Introducing to with HTML / CSS",
       courTeacher: [
         {
@@ -143,7 +143,7 @@ export const homeAbout = [
     },
     {
       id: 8,
-      cover: "../images/courses/c8.png",
+      cover: "./images/courses/c8.png",
       coursesName: "Introducing to with JAVA",
       courTeacher: [
         {
@@ -157,7 +157,7 @@ export const homeAbout = [
     },
     {
       id: 9,
-      cover: "../images/courses/c9.png",
+      cover: "./images/courses/c9.png",
       coursesName: "Introducing to with HTML / CSS / JAVASCRIPT",
       courTeacher: [
         {

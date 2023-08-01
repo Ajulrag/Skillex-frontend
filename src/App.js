@@ -23,7 +23,7 @@ function App() {
           <Route path='/' exact element={<UserLayout />} >
             <Route path='' element={<Home />}/>,
             <Route path='/about' element={<About />}/>,
-            <Route path='/courses' element={<CourseHome />}/>,
+            <Route path='/allCourses' element={<CourseHome />}/>,
           </Route>
           
           <Route path='/verify-email/:token' element={<VerifyEmail />} />

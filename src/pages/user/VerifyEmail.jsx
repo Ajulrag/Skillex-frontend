@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
@@ -14,11 +14,13 @@ const VerifyEmail = () => {
         color: '#fff',
       };
       
-      const customToastOptions = {
-        duration: 8000, // Duration in milliseconds
-        position: 'top-right', // Toast position on the screen
-        style: customToastStyle, // Custom styles for the toast
-      };
+      const customToastOptions = useMemo(() => {
+        return {
+          duration: 8000,
+          position: 'top-right',
+          style: customToastStyle,
+        };
+      }, [/* Dependencies */]);
       
         useEffect (()=> {
              const VerifyEmail = async () => {
@@ -34,7 +36,7 @@ const VerifyEmail = () => {
              }
              VerifyEmail();
 
-        },[token])
+        },[customToastOptions, navigate, token])
 
     return(
         <>
