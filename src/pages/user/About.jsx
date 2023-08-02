@@ -1,6 +1,6 @@
 import React from "react"
 import Back from "../../components/common/back/Back"
-import AboutCard from "../../components/about/AboutCard"
+import AboutCard from "../../components/user/about/AboutCard"
 
 const About = () => {
     return(

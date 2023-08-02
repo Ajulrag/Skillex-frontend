@@ -1,6 +1,6 @@
 import React from "react";
-import Title from "../common/title/Title";
-import { homeAbout } from "../../dummyData";
+import Title from "../../common/title/Title";
+import { homeAbout } from "../../../dummyData";
 import AWrapper from "./AWrapper";
 import './About.css'
 

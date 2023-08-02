@@ -1,6 +1,6 @@
 import React,{useEffect} from "react"
-import Hero from "../../components/home/hero/Hero"
-import AboutCard from "../../components/about/AboutCard"
+import Hero from "../../components/user/hero/Hero"
+import AboutCard from "../../components/user/about/AboutCard"
 import axios from "axios"
 
 const Home = () => {

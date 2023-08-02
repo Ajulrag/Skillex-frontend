@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Head } from './Head';
 import './Header.css';
 import { Link } from 'react-router-dom';
-import BecomeInstructor from '../../user/BecomeInstructor';
+import BecomeInstructor from '../../instructor/becomeInstructor/BecomeInstructor';
 
 const Header = () => {
   const [click, setClick] = useState(false);

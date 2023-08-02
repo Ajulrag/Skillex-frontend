@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./BI.css"; // Import the CSS file that includes Tailwind CSS styles
+import "./becomeinstructor.css"; // Import the CSS file that includes Tailwind CSS styles
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
