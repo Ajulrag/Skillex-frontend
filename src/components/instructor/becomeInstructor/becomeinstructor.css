@@ -39,17 +39,15 @@
     background-color: #1eb2a6;
     color: #ffffff;
     align-items: center;
-    margin-left: 8.5rem;
-    padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
   }
-  .close-btn {
-    margin-left: 20rem;
-    padding: 10px 16px;
-    background: rgb(228, 226, 226);
-    border-radius: 300px;
+  #close-btn {
+    border: none;
+    background-color: #f00202;
+    color: #ffffff;
+    align-items: center;
+    border-radius: 4px;
     cursor: pointer;
-    color: #333;
   }
   

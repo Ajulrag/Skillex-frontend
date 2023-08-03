@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./becomeinstructor.css"; // Import the CSS file that includes Tailwind CSS styles
+import "./becomeinstructor.css"; 
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
@@ -22,7 +22,7 @@ const BecomeInstructor = ({ onClose }) => {
 
     try {
       // Make a POST request to the server with the form data
-      const response = await axios.put("/instructor/signup", {
+      const response = await axios.post("/instructor/signup", {
         experience_years,
         field_of_study,
         token
@@ -41,13 +41,7 @@ const BecomeInstructor = ({ onClose }) => {
 
   return (
     <div className="overlay min-h-screen flex items-center justify-center bg-gray-900">
-      <div className="overlay-content bg-white shadow-lg rounded-lg p-8 w-full sm:w-96 relative">
-        <button
-          className="close-btn absolute top-2 right-2 text-red-600 text-xl"
-          onClick={onClose}
-        >
-          X
-        </button>
+      <div className="overlay-content bg-white shadow-lg rounded-lg p-8 w-full sm:w-96 relative flex flex-col items-center">
         <h2 className="text-center text-2xl font-bold mb-4">Become an Instructor</h2>
         <form onSubmit={handleSubmit} className="flex flex-col">
           <div className="mb-4">
@@ -76,13 +70,24 @@ const BecomeInstructor = ({ onClose }) => {
               className="w-full border border-gray-300 rounded-md p-2"
             />
           </div>
-          <button
-            id="bi_btn"
-            type="submit"
-            className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 self-end mt-4"
-          >
-            Submit
-          </button>
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginLeft: "1rem" }}>
+  <button
+    id="bi_btn"
+    type="submit"
+    className=" py-2 px-4 rounded-md hover:bg-blue-700"
+  >
+    Submit
+  </button>
+  <button
+  id="close-btn"
+    className=" py-2 px-4 rounded-md hover:bg-blue-700 ml-16" 
+    onClick={onClose}
+  >
+    Cancel
+  </button>
+</div>
+
+
         </form>
       </div>
     </div>
