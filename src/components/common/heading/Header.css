@@ -16,11 +16,11 @@
 
 /*---------------------header----------------*/
 header{
-    background-color: rgba(255, 255, 255, 0.2);
-    margin: 0 30px;
+    padding: 0 1.5rem;
 }
+
 header ul{
-    padding: 30px 20px;
+    padding: 10px 20px;
 }
 header li{
     margin-right: 40px;
@@ -36,7 +36,6 @@ header ul li a:hover{
 
 .start{
     background-color: #1eb2a6;
-    padding: 30px 70px;
     color: white;
     clip-path: polygon(10% 0, 100% 0, 100% 100%,0 100%);
 }
@@ -49,16 +48,16 @@ header ul li a:hover{
     .start{
         justify-content: center;
         text-align: center;
-        min-width: 710px;
+        /* min-width: 710px; */
         clip-path: none;
-        background-color: rgba(195, 205, 205, 0.411);
+        /* background-color: rgba(195, 205, 205, 0.411); */
     }
     .header{
         margin: 0;
         background-color: #1eb2a6;
         position: relative;
     }
-    header ul.flexSB{
+    header ul.flexSB li{
         display: none;
     }
     header ul li{
@@ -86,14 +85,14 @@ header ul li a:hover{
 @media screen and (max-width: 320px) {
    .start{
     margin-left: -30px;
-    min-width: 320px;
+    /* min-width: 320px; */
    }
     .header{
         margin: 0;
         background-color: #1eb2a6;
         position: relative;
     }
-    header ul.flexSB{
+    header ul.flexSB li{
         display: none;
     }
     header ul li{
@@ -114,3 +113,8 @@ header ul li a:hover{
         background-color: #1eb2a6;
     }
 }
+
+.header-scrolled {
+    background-color: #1eb2a6;
+    
+  }

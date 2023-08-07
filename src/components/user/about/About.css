@@ -10,9 +10,7 @@
     height: 100%;
     object-fit: cover;
 }
-.aboutHome .right{
-    padding: 80px 50px;
-}
+
 .aboutHome .items{
     margin-top: 50px;
 }
@@ -41,11 +39,11 @@
     box-shadow: 0 5px 25px -2px rgb(0 0 0 /6%);
 }
 .awrapper{
-    background-image: url("../../../public/images/awrapper.webp");
+    background-image: url("../../../../public/images/awrapper.webp");
     background-repeat: no-repeat;
     background-size: cover;
     background-position:  center;
-    height: 30vh;
+
     color: #000000;
 }
 .awrapper .box{

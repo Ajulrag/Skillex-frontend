@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
     padding: 0;
     margin: 0;
@@ -39,28 +43,27 @@ a{
 li{
     list-style-type: none;
 }
-button{
+.btn{
     border: none;
 }
 .row{
     width: 50%;
 }
-button{
+.btn{
     padding: 17px 30px;
     background-color: #ffffff;
     color: #1eb2a6;
     font-weight: 600;
     border: none;
-    margin: 30px 10px 0 0;
     border-radius: 3px;
     cursor: pointer;
     box-sizing: 0 24px 36px -11px rgba(0 0 0/9%);
 
 }
-button i{
+.btn i{
     margin-left: 20px;
 }
-button:hover{
+.btn:hover{
     box-shadow: none;
 }
 .primary-btn{
@@ -89,10 +92,6 @@ p{
     background-image: url('../public/images/back.webp');
     background-size: cover;
     background-attachment: fixed;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
     width: 100%;
     height: 100vh;
     padding-top: 30%;
@@ -124,7 +123,7 @@ p{
 /*-----------Responsive @768px-----------*/
 @media screen and (max-width: 768px) {
     .grid{
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1, 1fr);
     }
     .back{
         background-position: center;
@@ -133,3 +132,21 @@ p{
     }
 }
 
+
+/*----CourssesCard.jsx------*/
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Change this to display 4 items in a row */
+  grid-gap: 30px;
+}
+.outline-btn{
+    margin: 0;
+    box-shadow: none;
+    border: 2px solid #1eb2a6;
+    width: 100%;
+    transition: 0.5s;
+}
+.outline-btn:hover{
+    background-color:  #1eb2a6;
+    color: #ffff;
+}
