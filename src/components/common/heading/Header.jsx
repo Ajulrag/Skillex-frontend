@@ -4,12 +4,16 @@ import './Header.css';
 import { Link } from 'react-router-dom';
 import BecomeInstructor from '../../instructor/becomeInstructor/BecomeInstructor';
 import { useEffect } from 'react';
+import { useSelector } from "react-redux";
+
 
 const Header = () => {
+  const { user } = useSelector((state) => state.user)
   const [click, setClick] = useState(false);
   const [showInstructor, setShowInstructor] = useState(false);
-  const [isInstructor, setIsInstructor] = useState(false); // Add state variable to track instructor status
   const [scrolled, setScrolled] = useState(false);
+
+
   useEffect(() => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 0;
@@ -21,6 +25,8 @@ const Header = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+
   const handleLinkClick = (event) => {
     event.preventDefault();
     setShowInstructor(true);
@@ -30,16 +36,15 @@ const Header = () => {
     setShowInstructor(false);
   };
 
-  const handleSubmitInstructor = (data) => {
-    console.log(data);
-    // Set the instructor status to true when the instructor signs up successfully
-    setIsInstructor(true);
+  const handleSubmitInstructor = (event) => {
+    event.preventDefault();
+    setShowInstructor(false);
   };
 
   return (
     <>
       <Head />
-      <Head />
+
       <header className={`fixed w-full transition z-10 ${scrolled ? 'header-scrolled top-0' : 'top-24'}`}>
         <nav className={`flexSB ali nav-section ${!scrolled && 'bg-[#ffffff33] '}`}>
           <ul className={click ? 'mobile-nav' : 'flexSB items-center'} onClick={() => setClick(false)}>
@@ -51,8 +56,8 @@ const Header = () => {
             <li><Link to='/contact'>Contact Us</Link></li>
 
             {/* Use conditional rendering to show "Become Instructor" or "Dashboard" */}
-            {isInstructor ? (
-              <li><Link to='/dashboard'>Dashboard</Link></li>
+            {user && user.isInstructor ? (
+              <li><Link to='/instructor/dashboard'>Dashboard</Link></li>
             ) : (
               <li><Link to='/becomeInstructor' onClick={handleLinkClick}>Become Instructor</Link></li>
             )}

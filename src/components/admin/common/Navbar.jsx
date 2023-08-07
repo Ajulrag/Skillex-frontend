@@ -17,13 +17,13 @@ const Navbar = () => {
       link: "/admin",
       icon: MdOutlineDashboard,
     },
-    { name: "Courses", link: "/", icon: GiBookmarklet, },
-    { name: "Users", link: "/", icon: AiOutlineUser },
-    { name: "Instructors", link: "/", icon: GiTeacher },
+    { name: "Courses", link: "/admin/courses", icon: GiBookmarklet, },
+    { name: "Users", link: "/admin/users", icon: AiOutlineUser },
+    { name: "Instructors", link: "/admin/instructors", icon: GiTeacher },
     { name: "Categories", link: "/admin/categories", icon: BiCategoryAlt },
-    { name: "Sales", link: "/", icon: AiOutlineMoneyCollect },
-    { name: "Profile", link: "/", icon: CgProfile, },
-    { name: "Logout", link: "/", icon: CiLogout },
+    { name: "Sales", link: "/admin/sales", icon: AiOutlineMoneyCollect },
+    { name: "Profile", link: "/admin/profile", icon: CgProfile, },
+    { name: "Logout", link: "/logout", icon: CiLogout },
   ];
   const [open, setOpen] = useState(true);
 

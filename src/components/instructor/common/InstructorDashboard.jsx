@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Sidebar = () => {
+const InstructorDashboard = () => {
   return (
     <div className="">
       <div className="w-[12rem] bg-[#1eb2a6] fixed h-[100vh]">
         <ul className="pt-5">
-          <Link  to="/">
+          <Link  to="/admin/dashboard">
             <li className="p-5 font-semibold text-white hover:text-[#1eb2a6] hover:bg-white rounded-br-3xl rounded-tr-3xl">
               <i class="pl-2 fa-solid fa-house"></i>
               Dashboard
@@ -30,7 +30,7 @@ const Sidebar = () => {
               Instructors
             </li>
           </Link>
-          <Link  to="/admin/dashboard/categories">
+          <Link  to="/admin/categories">
             <li className="p-5 font-semibold text-white hover:text-[#1eb2a6] hover:bg-white rounded-br-3xl rounded-tr-3xl">
               <i class="pl-2 fa-solid fa-layer-group"></i>
               Categories
@@ -51,9 +51,10 @@ const Sidebar = () => {
         </ul>
       </div>
       <div className="items-center">
+
       </div>
     </div>
   );
 };
 
-export default Sidebar;
+export default InstructorDashboard;

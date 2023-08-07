@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from "../../../components/instructor/common/Sidebar";
+import Sidebar from "../../../components/instructor/common/InstructorDashboard";
 
 const Dashboard = () => {
     return(

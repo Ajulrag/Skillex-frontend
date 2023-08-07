@@ -5,7 +5,7 @@ import { instructorSignUpSchema } from "../../../formSchemas/userAuthSchema";
 import { useFormik } from "formik";
 import toast from "react-hot-toast";
 
-const BecomeInstructor = ({ onClose }) => {
+const BecomeInstructor = ({ onClose, onSubmit }) => {
   const navigate = useNavigate();
   const userToken = localStorage.getItem("userToken");
 
@@ -31,14 +31,17 @@ const BecomeInstructor = ({ onClose }) => {
           // },
           {
             headers: {
-              autherization: `${userToken}`, // Include the user token in the request headers
+              autherization: `${userToken}`, 
             },
           }
         );
 
-        if (response.status === 201) {
+        console.log(response);
+
+        if (response.data.code === 200) {
           console.log("Working!");
           navigate("/instructor/dashboard");
+          
         } else {
           toast.error(response.data.msg);
         }
