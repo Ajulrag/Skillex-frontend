@@ -32,6 +32,7 @@ const Login = () => {
           credentials: true
         })
         if(response.status === 201) {
+          console.log(response.token,'i am token');
           action.resetForm()
           navigate('/email-verify',{
             state: { email: values.email, name: values.name }
@@ -64,7 +65,7 @@ const Login = () => {
           credentials: true
         })
         if(response.data.message) {
-          localStorage.setItem('userToken', response.data?.results?.token)
+          localStorage.setItem('userToken', `Bearer ${response.data?.results?.token}`)
           action.resetForm()
           navigate('/')
         } else {

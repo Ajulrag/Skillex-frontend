@@ -10,9 +10,7 @@
     height: 100%;
     object-fit: cover;
 }
-.aboutHome .right{
-    padding: 80px 50px;
-}
+
 .aboutHome .items{
     margin-top: 50px;
 }
@@ -45,7 +43,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position:  center;
-    height: 30vh;
+
     color: #000000;
 }
 .awrapper .box{

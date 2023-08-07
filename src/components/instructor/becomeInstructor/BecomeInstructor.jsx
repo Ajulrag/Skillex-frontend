@@ -1,49 +1,61 @@
-import React, { useState } from "react";
-import "./becomeinstructor.css"; 
+import "./becomeinstructor.css";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { instructorSignUpSchema } from "../../../formSchemas/userAuthSchema";
+import { useFormik } from "formik";
+import toast from "react-hot-toast";
 
 const BecomeInstructor = ({ onClose }) => {
-  const { token } = useParams()
-  const [experience_years, setYearsOfExperience] = useState("");
-  const [field_of_study, setFieldOfStudy] = useState("");
+  const navigate = useNavigate();
+  const userToken = localStorage.getItem("userToken");
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    if (name === "experience_years") {
-      setYearsOfExperience(value);
-    } else if (name === "field_of_study") {
-      setFieldOfStudy(value);
-    }
+  const signUpInitials = {
+    experience_years: "",
+    field_of_study: "",
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent the form from submitting the traditional way
+  const signUpFormik = useFormik({
+    initialValues: signUpInitials,
+    validationSchema: instructorSignUpSchema,
 
-    try {
-      // Make a POST request to the server with the form data
-      const response = await axios.post("/instructor/signup", {
-        experience_years,
-        field_of_study,
-        token
-      });
+    onSubmit: async (values) => {
+      try {
+        console.log(userToken, "tok");
+        const response = await axios.put(
+          "/instructor/signup",
+          {
+            ...values,
+          },
+          // {
+          //   credentials: true,
+          // },
+          {
+            headers: {
+              autherization: `${userToken}`, // Include the user token in the request headers
+            },
+          }
+        );
 
-      // Handle the response from the server if needed
-      console.log("Response from server:", response.data);
-
-      // Close the overlay
-      onClose();
-    } catch (err) {
-      // Handle any errors that occur during the POST request
-      console.error("Error submitting form:", err);
-    }
-  };
+        if (response.status === 201) {
+          console.log("Working!");
+          navigate("/instructor/dashboard");
+        } else {
+          toast.error(response.data.msg);
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error("Server Error");
+      }
+    },
+  });
 
   return (
-    <div className="overlay min-h-screen flex items-center justify-center bg-gray-900">
-      <div className="overlay-content bg-white shadow-lg rounded-lg p-8 w-full sm:w-96 relative flex flex-col items-center">
-        <h2 className="text-center text-2xl font-bold mb-4">Become an Instructor</h2>
-        <form onSubmit={handleSubmit} className="flex flex-col">
+    <div className="overlay min-h-screen top-0 left-0 fixed flex items-center justify-center bg-gray-900">
+      <div className="overlay-content bg-white max-w-[30rem] shadow-lg rounded-lg p-8 w-full sm:w-96 relative flex flex-col items-center">
+        <h2 className="text-center text-2xl font-bold mb-4">
+          Become an Instructor
+        </h2>
+        <form className="flex flex-col" onSubmit={signUpFormik.handleSubmit}>
           <div className="mb-4">
             <label htmlFor="experience_years" className="block mb-2">
               Years of Experience:
@@ -52,8 +64,8 @@ const BecomeInstructor = ({ onClose }) => {
               type="number"
               id="experience_years"
               name="experience_years"
-              value={experience_years}
-              onChange={handleInputChange}
+              onChange={signUpFormik.handleChange}
+              value={signUpFormik.values.experience_years}
               className="w-full border border-gray-300 rounded-md p-2"
             />
           </div>
@@ -65,29 +77,34 @@ const BecomeInstructor = ({ onClose }) => {
               type="text"
               id="field_of_study"
               name="field_of_study"
-              value={field_of_study}
-              onChange={handleInputChange}
+              onChange={signUpFormik.handleChange}
+              value={signUpFormik.values.field_of_study}
               className="w-full border border-gray-300 rounded-md p-2"
             />
           </div>
-          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginLeft: "1rem" }}>
-  <button
-    id="bi_btn"
-    type="submit"
-    className=" py-2 px-4 rounded-md hover:bg-blue-700"
-  >
-    Submit
-  </button>
-  <button
-  id="close-btn"
-    className=" py-2 px-4 rounded-md hover:bg-blue-700 ml-16" 
-    onClick={onClose}
-  >
-    Cancel
-  </button>
-</div>
-
-
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginLeft: "1rem",
+            }}
+          >
+            <button
+              id="bi"
+              type="submit"
+              className="rounded-md hover:bg-blue-700 btn"
+            >
+              Submit
+            </button>
+            <button
+              id="close"
+              className="rounded-md hover:bg-blue-700 ml-16 btn"
+              onClick={onClose}
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </div>
     </div>

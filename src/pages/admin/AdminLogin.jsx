@@ -25,7 +25,7 @@ const AdminLogin = () => {
                 if(response.status === 201){
                     localStorage.setItem('adminToken', response.data?.results?.token)
                     action.resetForm()
-                    navigate('/admin/dashboard')
+                    navigate('/admin')
                 } else {
                     toast.error(response.data.msg)
                 }
@@ -74,7 +74,7 @@ const AdminLogin = () => {
           <p className="text-rose-600 text-xs">{loginFormik.errors.password}</p>
           <div className="flex items-center justify-between">
             <button
-              className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none"
+              className="px-4 py-2 btn text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none"
               type="submit"
             >
               Login

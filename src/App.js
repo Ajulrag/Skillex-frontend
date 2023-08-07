@@ -12,6 +12,7 @@ import AdminLayout from './components/admin/layout/AdminLayout';
 import AdminLogin from './pages/admin/AdminLogin';
 import Categories from './pages/admin/categories/categories';
 import CourseHome from './pages/user/CourseHome';
+import Dashboard from './pages/instructor/home/Dashboard';
 
 
 function App() {
@@ -24,15 +25,16 @@ function App() {
             <Route path='' element={<Home />}/>,
             <Route path='/about' element={<About />}/>,
             <Route path='/allCourses' element={<CourseHome />}/>,
+            <Route path='/instructor' element={<Dashboard />}/>,
           </Route>
           
           <Route path='/verify-email/:token' element={<VerifyEmail />} />
           <Route path='/email-verify'  element={<VerificationPage />} />
           <Route path='/auth' exact element={<Login />} />
-          <Route path='/admin' element={<AdminLogin/>}/>
+          <Route path='/admin-auth' element={<AdminLogin/>}/>
           
-          <Route path='/admin/dashboard' exact element={<AdminLayout/>} >
-            <Route path='/admin/dashboard/categories' element={<Categories/>} />
+          <Route path='/admin' exact element={<AdminLayout/>} >
+            <Route path='categories' element={<Categories/>} />
           </Route>
           
         </Routes>

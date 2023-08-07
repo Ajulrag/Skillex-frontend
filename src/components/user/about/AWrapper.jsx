@@ -4,10 +4,10 @@ import { awrapper } from "../../../dummyData";
 const AWrapper = () => {
     return(
         <>
-        <section className="awrapper">
-            <div className="container grid">
+        <section className="awrapper ">
+            <div className=" grid items-center justify-center">
                 {awrapper.map((val) => (
-                    <div key={val._id} className="box flex">
+                    <div key={val._id} className=" flex items-center justify-center">
                         <div className="img">
                             <img src={val.cover} alt="" />
                         </div>

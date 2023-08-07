@@ -25,16 +25,9 @@
     display: block;
     margin-bottom: 10px;
   }
+ 
   
-  input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  #bi_btn {
+  #bi {
     border: none;
     background-color: #1eb2a6;
     color: #ffffff;
@@ -42,7 +35,7 @@
     border-radius: 4px;
     cursor: pointer;
   }
-  #close-btn {
+  #close {
     border: none;
     background-color: #f00202;
     color: #ffffff;

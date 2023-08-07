@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Navbar from '../../../components/admin/common/Navbar';
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -17,10 +18,10 @@ const Categories = () => {
   }, []);
 
   return (
-    <div className="container mx-auto mt-4">
+    <div className="mx-auto">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">Categories</h2>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <button className="bg-blue-500 btn hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Create Category
         </button>
       </div>

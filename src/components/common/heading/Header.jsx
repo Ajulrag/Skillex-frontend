@@ -3,12 +3,24 @@ import { Head } from './Head';
 import './Header.css';
 import { Link } from 'react-router-dom';
 import BecomeInstructor from '../../instructor/becomeInstructor/BecomeInstructor';
+import { useEffect } from 'react';
 
 const Header = () => {
   const [click, setClick] = useState(false);
   const [showInstructor, setShowInstructor] = useState(false);
   const [isInstructor, setIsInstructor] = useState(false); // Add state variable to track instructor status
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 0;
+      setScrolled(isScrolled);
+    };
 
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   const handleLinkClick = (event) => {
     event.preventDefault();
     setShowInstructor(true);
@@ -27,9 +39,10 @@ const Header = () => {
   return (
     <>
       <Head />
-      <header>
-        <nav className='flexSB ali'>
-          <ul className={click ? 'mobile-nav' : 'flexSB'} onClick={() => setClick(false)}>
+      <Head />
+      <header className={`fixed w-full transition z-10 ${scrolled ? 'header-scrolled top-0' : 'top-24'}`}>
+        <nav className={`flexSB ali nav-section ${!scrolled && 'bg-[#ffffff33] '}`}>
+          <ul className={click ? 'mobile-nav' : 'flexSB items-center'} onClick={() => setClick(false)}>
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/allCourses'>Courses</Link></li>
             <li><Link to='/about'>About</Link></li>
@@ -49,12 +62,13 @@ const Header = () => {
             )}
 
           </ul>
-          <div className="start">
-            <div className="button">GET STARTED</div>
-          </div>
-          <button className="toggle" onClick={() => setClick(!click)}>
+          <div className="start flex items-center">
+            <div className="button text-center py-5 min-w-[12rem] hidden md:block font-bold">GET STARTED</div>
+            <button className="md:hidden btn" onClick={() => setClick(!click)}>
             {click ? <i className='fa fa-times'></i> : <i className='fa fa-bars'></i>}
           </button>
+          </div>
+          
         </nav>
       </header>
     </>
