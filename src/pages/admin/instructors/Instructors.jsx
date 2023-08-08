@@ -1,11 +1,10 @@
 import React from "react";
+import  InstructorsTable  from "../../../components/admin/instructors/InstructorsTable"
 
-const Instructors = () => {
+const Instructor = () => {
     return(
-        <>
-        <h1>I am Instructors</h1>
-        </>
+        <InstructorsTable />
     )
 }
 
-export default Instructors;
+export default Instructor;

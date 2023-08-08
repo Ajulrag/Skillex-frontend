@@ -27,11 +27,11 @@ export const Head = () => {
                     <h1>SKILLEX</h1>
                     <span className='text-sm'>ONLINE EDUCATION & LEARNING</span>
                 </div>
-            <div class=" ml-auto ">
-              <div class="w-full  flex border-b-2 border-b-[#1eb2a6]">
-                <input type="text" class="bg-transparent h-12   text-[#1eb2a6] focus:text-[#1eb2a6]"/>
-                <button type="submit" class="w-10 h-12   text-white ">
-                <i class="fa fa-search"></i>
+            <div className=" ml-auto ">
+              <div className="w-full  flex border-b-2 border-b-[#1eb2a6]">
+                <input type="text" className="bg-transparent h-12   text-[#1eb2a6] focus:text-[#1eb2a6]"/>
+                <button type="submit" className="w-10 h-12   text-white ">
+                <i className="fa fa-search"></i>
                 </button>
               </div>
             </div>
