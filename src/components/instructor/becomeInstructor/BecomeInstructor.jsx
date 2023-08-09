@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { instructorSignUpSchema } from "../../../formSchemas/userAuthSchema";
 import { useFormik } from "formik";
 import toast from "react-hot-toast";
+import PrivateRoutes from "../../PrivateRoute";
 
 const BecomeInstructor = ({ onClose, onSubmit }) => {
   const navigate = useNavigate();
@@ -53,6 +54,7 @@ const BecomeInstructor = ({ onClose, onSubmit }) => {
   });
 
   return (
+    <PrivateRoutes>
     <div className="overlay min-h-screen top-0 left-0 fixed flex items-center justify-center bg-gray-900">
       <div className="overlay-content bg-white max-w-[30rem] shadow-lg rounded-lg p-8 w-full sm:w-96 relative flex flex-col items-center">
         <h2 className="text-center text-2xl font-bold mb-4">
@@ -111,6 +113,7 @@ const BecomeInstructor = ({ onClose, onSubmit }) => {
         </form>
       </div>
     </div>
+    </PrivateRoutes>
   );
 };
 

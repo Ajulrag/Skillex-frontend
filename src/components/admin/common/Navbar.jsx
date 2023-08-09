@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
-import { RiSettings4Line } from "react-icons/ri";
-import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineUser } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { GiBookmarklet,GiTeacher } from "react-icons/gi"
 import { BiCategoryAlt } from "react-icons/bi"

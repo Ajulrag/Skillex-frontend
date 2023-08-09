@@ -2,11 +2,16 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setUserDetails } from "../../../redux/UserSlice"; // Update the import path
+
+
 
 export const Head = () => {
-  const { user } = useSelector((state) => state.user);
+  let { user } = useSelector((state) => state.user);
   const [isDropdownOpen, setDropdownOpen] = useState(false); // Step 1
   const [scrolled, setScrolled] = useState(false);
+  const dispatch = useDispatch();
 
   console.log("redux", user);
 
@@ -28,6 +33,9 @@ export const Head = () => {
   const handleLogout = () => {
     console.log("appeared");
     localStorage.removeItem('userToken');
+    dispatch(setUserDetails(null));
+    setDropdownOpen(false);
+    
   }
 
   return (
@@ -64,7 +72,7 @@ export const Head = () => {
                   <i id="ll" className="fas fa-user icon"></i>
                 </button>
                 {isDropdownOpen && (
-                  <div className="absolute z-50 right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-lg">
+                  <div  className="absolute z-50 right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-lg">
                     <ul>
                       <li>
                         <Link

@@ -45,7 +45,7 @@ const Header = () => {
     <>
       <Head />
 
-      <header className={`fixed w-full transition z-10 ${scrolled ? 'header-scrolled top-0' : 'top-24'}`}>
+      <header className={`fixed w-full transition z-[9] ${scrolled ? 'header-scrolled top-0' : 'top-24'}`}>
         <nav className={`flexSB ali nav-section ${!scrolled && 'bg-[#ffffff33] '}`}>
           <ul className={click ? 'mobile-nav' : 'flexSB items-center'} onClick={() => setClick(false)}>
             <li><Link to='/'>Home</Link></li>
