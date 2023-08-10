@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
-import { RiSettings4Line } from "react-icons/ri";
-import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineUser } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { GiBookmarklet,GiTeacher } from "react-icons/gi"
 import { BiCategoryAlt } from "react-icons/bi"
@@ -17,13 +16,13 @@ const Navbar = () => {
       link: "/admin",
       icon: MdOutlineDashboard,
     },
-    { name: "Courses", link: "/", icon: GiBookmarklet, },
-    { name: "Users", link: "/", icon: AiOutlineUser },
-    { name: "Instructors", link: "/", icon: GiTeacher },
+    { name: "Courses", link: "/admin/courses", icon: GiBookmarklet, },
+    { name: "Users", link: "/admin/users", icon: AiOutlineUser },
+    { name: "Instructors", link: "/admin/instructors", icon: GiTeacher },
     { name: "Categories", link: "/admin/categories", icon: BiCategoryAlt },
-    { name: "Sales", link: "/", icon: AiOutlineMoneyCollect },
-    { name: "Profile", link: "/", icon: CgProfile, },
-    { name: "Logout", link: "/", icon: CiLogout },
+    { name: "Sales", link: "/admin/sales", icon: AiOutlineMoneyCollect },
+    { name: "Profile", link: "/admin/profile", icon: CgProfile, },
+    { name: "Logout", link: "/logout", icon: CiLogout },
   ];
   const [open, setOpen] = useState(true);
 

@@ -1,7 +1,7 @@
 import  { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { setUserDetails} from "../../../redux/UserSlice";
+import { setUserDetails} from "../redux/UserSlice";
 
 
 const PrivateRoutes = ({children}) => {

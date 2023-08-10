@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { instructorSignUpSchema } from "../../../formSchemas/userAuthSchema";
 import { useFormik } from "formik";
 import toast from "react-hot-toast";
+import PrivateRoutes from "../../PrivateRoute";
 
-const BecomeInstructor = ({ onClose }) => {
+const BecomeInstructor = ({ onClose, onSubmit }) => {
   const navigate = useNavigate();
   const userToken = localStorage.getItem("userToken");
 
@@ -31,14 +32,17 @@ const BecomeInstructor = ({ onClose }) => {
           // },
           {
             headers: {
-              autherization: `${userToken}`, // Include the user token in the request headers
+              autherization: `${userToken}`, 
             },
           }
         );
 
-        if (response.status === 201) {
+        console.log(response);
+
+        if (response.data.code === 200) {
           console.log("Working!");
           navigate("/instructor/dashboard");
+          
         } else {
           toast.error(response.data.msg);
         }
@@ -50,6 +54,7 @@ const BecomeInstructor = ({ onClose }) => {
   });
 
   return (
+    <PrivateRoutes>
     <div className="overlay min-h-screen top-0 left-0 fixed flex items-center justify-center bg-gray-900">
       <div className="overlay-content bg-white max-w-[30rem] shadow-lg rounded-lg p-8 w-full sm:w-96 relative flex flex-col items-center">
         <h2 className="text-center text-2xl font-bold mb-4">
@@ -108,6 +113,7 @@ const BecomeInstructor = ({ onClose }) => {
         </form>
       </div>
     </div>
+    </PrivateRoutes>
   );
 };
 
