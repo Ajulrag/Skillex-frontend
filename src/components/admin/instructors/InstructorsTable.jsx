@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-
+import { Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 const InstructorsTable = () => {
   const [data, setData] = useState([]);
   const [filterData, setFilterData] = useState([]);
@@ -32,8 +33,17 @@ const InstructorsTable = () => {
       selector: (row) => `${row.status}`,
     },
     {
-      name: "Actions",
-      selector: (row) => row.actions,
+      name: "Toggle Status",
+      cell: (row) => (
+        <button
+          className={`${
+            row.status === "Active" ? "bg-green-500" : "bg-red-500"
+          } hover:bg-opacity-75 text-white font-bold py-1 px-2 rounded`}
+          onClick={() => toggleInstructorStatus(row._id, row.status)}
+        >
+          {row.status === "Active" ? "Deactivate" : "Activate"}
+        </button>
+      ),
     },
   ];
   const formatDate = (dateString) => {
@@ -43,8 +53,11 @@ const InstructorsTable = () => {
     }-${date.getFullYear()}`;
     return formattedDate;
   };
-
   useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
     axios
       .get("/admin/instructors")
       .then((res) => {
@@ -60,7 +73,7 @@ const InstructorsTable = () => {
         setFilterData(instructorsWithSerialNo);
       })
       .catch((err) => console.log(err));
-  }, []);
+  };
 
   const handleFilter = (event) => {
     const newData = filterData.filter((row) =>
@@ -69,6 +82,19 @@ const InstructorsTable = () => {
     setData(newData);
   };
 
+  const toggleInstructorStatus = async (instructorId, currentStatus) => {
+    try {
+      const newStatus = currentStatus === "Active" ? "Inactive" : "Active";
+      await axios.put(
+        `/admin/instructors/status/${instructorId}?status=${newStatus}`
+      );
+      fetchData(); // Refresh the data after updating the status
+      toast.success(`Instructor status changed to ${newStatus}`);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to update instructor status");
+    }
+  };
   return (
     <div className="p-4">
       <div className="mb-4">

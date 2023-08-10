@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import DataTable from "react-data-table-component";
 import { Toaster } from "react-hot-toast";
-import { toast } from "react-hot-toast"; // Import toast from react-hot-toast
+import { toast } from "react-hot-toast";
 import CategoryHeader from "./CategoryHeader";
+import CreateCategoryOverlay from "./CreateCategoryOverlay"; // Import the overlay component
 
 const CategoriesTable = () => {
   const [data, setData] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null); // State to store the selected category
 
   const column = [
     {
@@ -31,8 +33,18 @@ const CategoriesTable = () => {
     },
     {
       name: "Edit",
-      selector: (row) => row.serialNo,
-      sortable: true,
+      selector: "", // We don't need a selector for this column
+      cell: (row) => (
+        <div>
+          <button
+            className="text-blue-500 hover:text-blue-700"
+            onClick={() => handleEditCategory(row)}
+          >
+            Edit
+          </button>
+        </div>
+      ),
+      sortable: false,
     },
     {
       name: "Toggle Status",
@@ -57,7 +69,6 @@ const CategoriesTable = () => {
     axios
       .get("/admin/categories")
       .then((res) => {
-        console.log(res.data.results.categories);
         const categoriesWithSerialNo = res.data.results.categories.map(
           (category, index) => ({
             ...category,
@@ -69,10 +80,16 @@ const CategoriesTable = () => {
       .catch((err) => console.log(err));
   };
 
+  const handleEditCategory = (category) => {
+    setSelectedCategory(category);
+  };
+
   const toggleCategoryStatus = async (categoryId, currentStatus) => {
     try {
       const newStatus = currentStatus === "Active" ? "Inactive" : "Active";
-      await axios.put(`/admin/categories/category/status/${categoryId}?status=${newStatus}`);
+      await axios.put(
+        `/admin/categories/category/status/${categoryId}?status=${newStatus}`
+      );
       fetchData(); // Refresh the data after updating the status
       toast.success(`Category status changed to ${newStatus}`);
     } catch (error) {
@@ -82,11 +99,22 @@ const CategoriesTable = () => {
   };
 
   return (
-    <>
-      <CategoryHeader onCategoryCreated={fetchData} />
+    <div className="bg-white p-4 rounded-lg shadow-md border border-[#] ml-3 mt-3 mr-3">
+      <CategoryHeader
+        onCategoryCreated={fetchData}
+        onCategoryEdit={() => setSelectedCategory(null)}
+        setSelectedCategory={setSelectedCategory} // Pass the setSelectedCategory function
+      />
       <DataTable columns={column} data={data} pagination />
       <Toaster />
-    </>
+      {selectedCategory && (
+        <CreateCategoryOverlay
+          onClose={() => setSelectedCategory(null)}
+          onCategoryCreated={fetchData}
+          selectedCategory={selectedCategory}
+        />
+      )}
+    </div>
   );
 };
 

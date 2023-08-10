@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import CreateCategoryOverlay from "./CreateCategoryOverlay";
 
-const CategoryHeader = ({ onCategoryCreated }) => {
+const CategoryHeader = ({
+  onCategoryCreated,
+  selectedCategory,
+  setSelectedCategory,
+}) => {
   const [isOverlayOpen, setOverlayOpen] = useState(false);
 
   const handleCreateCategory = () => {
+    setSelectedCategory(null); // Reset selectedCategory for create mode
     setOverlayOpen(true);
   };
 
   const handleCloseOverlay = () => {
+    setSelectedCategory(null); // Reset selectedCategory when closing overlay
     setOverlayOpen(false);
   };
 
@@ -27,6 +33,7 @@ const CategoryHeader = ({ onCategoryCreated }) => {
         <CreateCategoryOverlay
           onClose={handleCloseOverlay}
           onCategoryCreated={onCategoryCreated}
+          setSelectedCategory={setSelectedCategory} // Pass the setSelectedCategory function
         />
       )}
     </>

@@ -1,45 +1,62 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-const CreateCategoryOverlay = ({ onClose, onCategoryCreated }) => {
+const CreateCategoryOverlay = ({ onClose, onCategoryCreated, selectedCategory, setSelectedCategory }) => {
   const [category_name, setCategoryName] = useState("");
   const [category_description, setCategoryDescription] = useState("");
   const [categoryConflictError, setCategoryConflictError] = useState("");
+
+  useEffect(() => {
+    if (selectedCategory) {
+      setCategoryName(selectedCategory.category_name);
+      setCategoryDescription(selectedCategory.category_description);
+    }
+  }, [selectedCategory]);
 
   const handleSubmit = async () => {
     try {
       if (!validateForm()) return;
 
-      console.log("Arrived for category creation");
-      const response = await axios.post("/admin/categories/create", {
-        category_name,
-        category_description,
-      });
+      if (selectedCategory) {
+        // Edit category logic
+        const response = await axios.put(`/admin/categories/category/editcategory/${selectedCategory._id}`, {
+          category_name,
+          category_description,
+        });
+        console.log(response.data, "Response data after editing");
 
-      console.log(response.data, "Response data");
-      setCategoryName("");
-      setCategoryDescription("");
-      setCategoryConflictError("");
-      toast.success("Category created successfully");
+        toast.success("Category updated successfully");
+      } else {
+        // Create category logic
+        const response = await axios.post("/admin/categories/create", {
+          category_name,
+          category_description,
+        });
+        console.log(response.data, "Response data after creation");
 
-      // Notify the parent component of the new category
+        toast.success("Category created successfully");
+      }
+
+      // Notify the parent component of the new/updated category
       onCategoryCreated();
 
       onClose();
     } catch (error) {
       console.error(error);
+
       if (error.response && error.response.status === 409) {
         setCategoryConflictError(
           "Category name already exists. Please choose another name."
         );
       } else {
-        toast.error("Failed to create category!!!");
+        toast.error("An error occurred while processing your request");
       }
     }
   };
 
   const handleCancel = () => {
+    setSelectedCategory(null); // Clear selectedCategory
     setCategoryName("");
     setCategoryDescription("");
     setCategoryConflictError("");
@@ -57,7 +74,9 @@ const CreateCategoryOverlay = ({ onClose, onCategoryCreated }) => {
   return (
     <div className="overlay" style={{ zIndex: 1000 }}>
       <div className="overlay-content">
-        <h2 className="text-xl font-bold mb-4">Create Category</h2>
+        <h2 className="text-xl font-bold mb-4">
+          {selectedCategory ? "Edit Category" : "Create Category"}
+        </h2>
         {categoryConflictError && (
           <p className="text-red-500 mb-2">{categoryConflictError}</p>
         )}
@@ -85,7 +104,7 @@ const CreateCategoryOverlay = ({ onClose, onCategoryCreated }) => {
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2"
             onClick={handleSubmit}
           >
-            Submit
+            {selectedCategory ? "Update" : "Submit"}
           </button>
           <button
             className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4"
