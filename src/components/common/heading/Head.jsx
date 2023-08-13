@@ -51,7 +51,8 @@ export const Head = () => {
           <div className="w-full  flex border-b-2 border-b-[#1eb2a6]">
             <input
               type="text"
-              className="bg-transparent h-12   text-[#1eb2a6] focus:text-[#1eb2a6]"
+              className="bg-transparent h-12   text-[#1eb2a6] focus:text-[#1eb2a6] placeholder:text-black"
+              placeholder="Search..."
             />
             <button type="submit" className="w-10 h-12   text-white ">
               <i className="fa fa-search"></i>

@@ -7,7 +7,8 @@ import axios from "axios";
 import { loginSchema,signUpSchema } from "../../formSchemas/userAuthSchema"; 
 import { useFormik } from "formik";
 import toast,{ Toaster } from "react-hot-toast";
-import { GoogleOAuthProvider,GoogleLogin } from '@react-oauth/google';
+import { Link } from "react-router-dom";
+// import { GoogleOAuthProvider,GoogleLogin } from '@react-oauth/google';
 
 
 const Login = () => {
@@ -111,9 +112,10 @@ const Login = () => {
               </div>
                   <p className="text-rose-600 text-xs">{loginFormik.errors.password}</p>  
               <input type="submit" value="Login" className="btn solid" />
-              <p className="social-text">Or Sign in with social platforms</p>
+              {/* <p className="social-text">Or Sign in with social platforms</p> */}
               <div className="social-media">
-            <GoogleOAuthProvider clientId="1065305434408-l2vg8mbjbv5f9a265eaq0ji1ielrhiud.apps.googleusercontent.com  ">
+                <Link to='/forgot-password' className="mt-2 pt-5 text-green-500">Forgot password?</Link>
+            {/* <GoogleOAuthProvider clientId="1065305434408-l2vg8mbjbv5f9a265eaq0ji1ielrhiud.apps.googleusercontent.com  ">
             <GoogleLogin
               onSuccess={credentialResponse => {
                 console.log(credentialResponse);
@@ -122,7 +124,7 @@ const Login = () => {
                 console.log('Login Failed');
               }}
             />
-            </GoogleOAuthProvider>
+            </GoogleOAuthProvider> */}
                 {/* <a href="/google" className="social-icon">
                   <i className="fab fa-google"></i>
                 </a> */}
@@ -170,7 +172,7 @@ const Login = () => {
               </div>
                 <p className="text-rose-600 text-xs">{signupFormik.touched.confirmPassword && signupFormik.errors.confirmPassword}</p>
               <input type="submit" className="btn" value="Sign up" />
-              <p className="social-text">Or Sign up with social platforms</p>
+              {/* <p className="social-text">Or Sign up with social platforms</p>
               <GoogleOAuthProvider clientId="1065305434408-l2vg8mbjbv5f9a265eaq0ji1ielrhiud.apps.googleusercontent.com  ">
             <GoogleLogin
               onSuccess={credentialResponse => {
@@ -180,7 +182,7 @@ const Login = () => {
                 console.log('Login Failed');
               }}
             />
-            </GoogleOAuthProvider>
+            </GoogleOAuthProvider> */}
             </form>
           </div>
         </div>

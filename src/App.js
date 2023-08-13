@@ -19,6 +19,8 @@ import Instructors from './pages/admin/instructors/Instructors';
 import Sales from './pages/admin/sales/Sales';
 import Profile from './pages/admin/profile/Profile';
 import AdminHome from './pages/admin/home/AdminHome';
+import ForgotPassword from './components/user/forgotPassword/ForgotPassword';
+import ResetPassword from './components/user/forgotPassword/ResetPassword';
 
 
 function App() {
@@ -36,6 +38,8 @@ function App() {
           <Route path='/instructor/dashboard' element={<Dashboard />}/>
           <Route path='/verify-email/:token' element={<VerifyEmail />} />
           <Route path='/email-verify'  element={<VerificationPage />} />
+          <Route path='/forgot-password' element={<ForgotPassword />}/>
+          <Route path='/reset/:id/:token' element={<ResetPassword />}/>
           <Route path='/auth' exact element={<Login />} />
           <Route path='/admin-auth' element={<AdminLogin/>}/>
           
