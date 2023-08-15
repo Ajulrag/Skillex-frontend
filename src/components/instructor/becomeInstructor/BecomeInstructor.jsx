@@ -41,7 +41,7 @@ const BecomeInstructor = ({ onClose, onSubmit }) => {
 
         if (response.data.code === 200) {
           console.log("Working!");
-          navigate("/instructor/dashboard");
+          navigate("/instructor");
           
         } else {
           toast.error(response.data.msg);

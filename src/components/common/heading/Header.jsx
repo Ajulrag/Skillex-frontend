@@ -57,7 +57,7 @@ const Header = () => {
 
             {/* Use conditional rendering to show "Become Instructor" or "Dashboard" */}
             {user && user.isInstructor ? (
-              <li><Link to='/instructor/dashboard'>Dashboard</Link></li>
+              <li><Link to='/instructor'>Dashboard</Link></li>
             ) : (
               <li><Link to='/becomeInstructor' onClick={handleLinkClick}>Become Instructor</Link></li>
             )}

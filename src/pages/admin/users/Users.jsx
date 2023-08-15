@@ -1,10 +1,9 @@
 import React from "react";
+import UsersTable from "../../../components/admin/users/UsersTable";
 
 const Users = () => {
     return(
-        <>
-        <h1>I am Users</h1>
-        </>
+        <UsersTable />
     )
 }
 
