@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import OverlayComponent from "./OL";
+import OverlayComponent from "./CreateCourseOverlay";
 
 const ICoursesHeader = () => {
   const [overlayVisible, setOverlayVisible] = useState(false);

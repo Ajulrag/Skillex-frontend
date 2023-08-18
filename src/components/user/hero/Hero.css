@@ -40,14 +40,6 @@
         padding-top: 80%;
         min-height: 100vh;
     }
-    button{
-        background-color: #1eb2a6;
-        color: #ffff;
-        padding: 17px 30px;
-        font-weight: 600;
-        margin: 30px 10px 0 0;
-        border-radius: 3px;
-        cursor: pointer;
-    }
+    
     
 }

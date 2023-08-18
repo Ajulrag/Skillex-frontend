@@ -30,10 +30,11 @@ const Navbar = () => {
     <section className="flex gap-6">
       <div
         className={`bg-[#2D2F31] min-h-screen ${
-          open ? "w-52" : "w-16"
+          open ? "w-52 rounded-md h-[100vh]" : "w-16 rounded-md h-[100vh]"
         } duration-500 text-gray-100 px-4`}
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
+
       >
         <div className="py-3 flex justify-end">
           <HiMenuAlt3
