@@ -23,6 +23,7 @@ import ResetPassword from './components/user/forgotPassword/ResetPassword';
 import InstructorLayout from './components/instructor/layout/InstructorLayout';
 import InstructorDashboard from './pages/instructor/home/InstructorDashboard';
 import InstructorCourses from './pages/instructor/courses/InstructorCourses';
+import UploadCariculam from './components/instructor/courses/UploadCariculam';
 
 
 function App() {
@@ -40,6 +41,8 @@ function App() {
           <Route path='/instructor' exact element={<InstructorLayout />} >
           <Route path='' element={<InstructorDashboard />}/>,
           <Route path='courses' element={<InstructorCourses/>} />,
+          <Route path='create-courses' element={<UploadCariculam/>} />,
+
            
           </Route>
 

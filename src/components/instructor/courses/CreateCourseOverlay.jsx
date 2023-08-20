@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const OverlayComponent = ({ onClose }) => {
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user)
+  console.log(user,"i am ");
   const [step, setStep] = useState(1);
   const [categories, setCategories] = useState([]); // Initialize as an empty array
   const [stepOneData, setStepOneData] = useState({
@@ -22,7 +26,6 @@ const OverlayComponent = ({ onClose }) => {
     stepThree: {},
   });
 
-  const user = useSelector((state) => state.user);
 
   const handleInputChange = (e, stepNumber) => {
     const { name, value } = e.target;
@@ -357,6 +360,10 @@ const OverlayComponent = ({ onClose }) => {
 
   const submitData = async () => {
     try {
+      if (!user) {
+        console.error("User data is not available.");
+        return;
+      }
       const formData = new FormData();
       formData.append("course_title", stepOneData.course_title);
       formData.append("course_subtitle", stepOneData.course_subtitle);
@@ -365,18 +372,17 @@ const OverlayComponent = ({ onClose }) => {
       formData.append("category", stepTwoData.category);
       formData.append("course_image", imageFile);
       formData.append("promotional_video", videoFile);
-      formData.append("tutor_name", user.name);
-      formData.append("tutor_email", user.email);
+      formData.append("tutor", user._id);
 
       const response = await axios.post("/instructor/submit-course", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-
-      if (response.status === 201) {
+  
+      if (response.status === 200) {
         console.log("Course submitted successfully");
-        // Success, handle accordingly
+        navigate('/instructor/create-courses');
       } else {
         console.error("Failed to submit course");
       }
