@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { toast } from "react-hot-toast";
 
-const InstructorsTable = () => {
+const UsersTable = () => {
   const [data, setData] = useState([]);
   const [filterData, setFilterData] = useState([]);
   const column = [
@@ -11,7 +11,6 @@ const InstructorsTable = () => {
       name: "Serial No",
       selector: (row) => row.serialNo,
       sortable: true,
-      width: "5%",
     },
     {
       name: "Name",
@@ -22,6 +21,7 @@ const InstructorsTable = () => {
       name: "Email",
       selector: (row) => row.email,
       sortable: true,
+      width: "25%",
     },
     {
       name: "Joined On",
@@ -39,7 +39,7 @@ const InstructorsTable = () => {
           className={`${
             row.status === "Active" ? "bg-green-500" : "bg-red-500"
           } hover:bg-opacity-75 text-white font-bold py-1 px-2 rounded`}
-          onClick={() => toggleInstructorStatus(row._id, row.status)}
+          onClick={() => toggleUsersStatus(row._id, row.status)}
         >
           {row.status === "Active" ? "Deactivate" : "Activate"}
         </button>
@@ -59,17 +59,17 @@ const InstructorsTable = () => {
 
   const fetchData = () => {
     axios
-      .get("/admin/instructors")
+      .get("/admin/users")
       .then((res) => {
-        const instructorsWithSerialNo = res.data.results.instructors.map(
-          (instructor, index) => ({
-            ...instructor,
+        const usersWithSerialNo = res.data.results.users.map(
+          (user, index) => ({
+            ...user,
             serialNo: index + 1,
           })
         );
 
-        setData(instructorsWithSerialNo);
-        setFilterData(instructorsWithSerialNo);
+        setData(usersWithSerialNo);
+        setFilterData(usersWithSerialNo);
       })
       .catch((err) => console.log(err));
   };
@@ -81,11 +81,11 @@ const InstructorsTable = () => {
     setData(newData);
   };
 
-  const toggleInstructorStatus = async (instructorId, currentStatus) => {
+  const toggleUsersStatus = async (userId, currentStatus) => {
     try {
       const newStatus = currentStatus === "Active" ? "Inactive" : "Active";
       await axios.put(
-        `/admin/instructors/status/${instructorId}?status=${newStatus}`
+        `/admin/users/status/${userId}?status=${newStatus}`
       );
       fetchData(); // Refresh the data after updating the status
       toast.success(`Instructor status changed to ${newStatus}`);
@@ -109,4 +109,4 @@ const InstructorsTable = () => {
   );
 };
 
-export default InstructorsTable;
+export default UsersTable;

@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-const CreateCategoryOverlay = ({ onClose, onCategoryCreated, selectedCategory, setSelectedCategory }) => {
+const CreateCategoryOverlay = ({
+  onClose,
+  onCategoryCreated,
+  selectedCategory,
+  setSelectedCategory,
+}) => {
   const [category_name, setCategoryName] = useState("");
   const [category_description, setCategoryDescription] = useState("");
   const [categoryConflictError, setCategoryConflictError] = useState("");
@@ -20,10 +25,13 @@ const CreateCategoryOverlay = ({ onClose, onCategoryCreated, selectedCategory, s
 
       if (selectedCategory) {
         // Edit category logic
-        const response = await axios.put(`/admin/categories/category/editcategory/${selectedCategory._id}`, {
-          category_name,
-          category_description,
-        });
+        const response = await axios.put(
+          `/admin/categories/category/editcategory/${selectedCategory._id}`,
+          {
+            category_name,
+            category_description,
+          }
+        );
         console.log(response.data, "Response data after editing");
 
         toast.success("Category updated successfully");
