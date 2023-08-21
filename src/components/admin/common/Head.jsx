@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Head = () => {
   return (
     <>
-      <div className="flex justify-between bg-[#2D2F31] p-2 ">
+      <div className="flex justify-between bg-[#2D2F31] p-2 fixed w-full z-50">
           <div>
             <h1 className="text-4xl font-bold text-blue-500   hover:scale-110 transition duration-300">
               S<span className="text-red-500">K</span>

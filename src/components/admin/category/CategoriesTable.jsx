@@ -4,17 +4,27 @@ import DataTable from "react-data-table-component";
 import { Toaster } from "react-hot-toast";
 import { toast } from "react-hot-toast";
 import CategoryHeader from "./CategoryHeader";
-import CreateCategoryOverlay from "./CreateCategoryOverlay"; // Import the overlay component
+import CreateCategoryOverlay from "./CreateCategoryOverlay";
 
 const CategoriesTable = () => {
   const [data, setData] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null); // State to store the selected category
+  const [filterData, setFilterData] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [categoryToChange, setCategoryToChange] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const toggleConfirmation = (categoryId, currentStatus) => {
+    setCategoryToChange({ categoryId, currentStatus });
+    setIsConfirmationOpen(!isConfirmationOpen);
+  };
 
   const column = [
     {
       name: "Serial No",
       selector: (row) => row.serialNo,
       sortable: true,
+      width: "10%",
     },
     {
       name: "Category Name",
@@ -25,6 +35,7 @@ const CategoriesTable = () => {
       name: "Description",
       selector: (row) => row.category_description,
       sortable: true,
+      cell: (row) => <div className="md:block ">{row.category_description}</div>,
     },
     {
       name: "Status",
@@ -33,7 +44,7 @@ const CategoriesTable = () => {
     },
     {
       name: "Edit",
-      selector: "", // We don't need a selector for this column
+      selector: "",
       cell: (row) => (
         <div>
           <button
@@ -53,7 +64,7 @@ const CategoriesTable = () => {
           className={`${
             row.status === "Active" ? "bg-green-500" : "bg-red-500"
           } hover:bg-opacity-75 text-white font-bold py-1 px-2 rounded`}
-          onClick={() => toggleCategoryStatus(row._id, row.status)}
+          onClick={() => toggleConfirmation(row._id, row.status)}
         >
           {row.status === "Active" ? "Deactivate" : "Activate"}
         </button>
@@ -76,6 +87,7 @@ const CategoriesTable = () => {
           })
         );
         setData(categoriesWithSerialNo);
+        setFilterData(categoriesWithSerialNo);
       })
       .catch((err) => console.log(err));
   };
@@ -90,7 +102,7 @@ const CategoriesTable = () => {
       await axios.put(
         `/admin/categories/category/status/${categoryId}?status=${newStatus}`
       );
-      fetchData(); // Refresh the data after updating the status
+      fetchData();
       toast.success(`Category status changed to ${newStatus}`);
     } catch (error) {
       console.error(error);
@@ -98,15 +110,67 @@ const CategoriesTable = () => {
     }
   };
 
+  const handleFilter = (event) => {
+    const searchTerm = event.target.value.toLowerCase();
+    setSearchTerm(searchTerm);
+
+    const newData = filterData.filter(
+      (row) =>
+        row.category_name.toLowerCase().includes(searchTerm) ||
+        row.category_description.toLowerCase().includes(searchTerm) ||
+        row.status.toLowerCase().includes(searchTerm)
+    );
+
+    setData(newData);
+  };
+
   return (
     <div className="bg-white p-4 rounded-lg shadow-md border border-[#] ml-3 mt-3 mr-3">
+      <div className="mb-4">
+        <input
+          type="text"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={handleFilter}
+        />
+      </div>
       <CategoryHeader
         onCategoryCreated={fetchData}
         onCategoryEdit={() => setSelectedCategory(null)}
-        setSelectedCategory={setSelectedCategory} // Pass the setSelectedCategory function
+        setSelectedCategory={setSelectedCategory}
       />
       <DataTable columns={column} data={data} pagination />
       <Toaster />
+
+      {isConfirmationOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 h-48">
+          <div className="bg-white p-4 rounded-lg shadow-md ">
+            <p>Are you sure you want to change the status?</p>
+            <div className="flex justify-center mt-2">
+              <button
+                className="bg-red-500 text-white px-4 py-2 rounded-md mr-2"
+                onClick={async () => {
+                  setIsConfirmationOpen(false);
+                  await toggleCategoryStatus(
+                    categoryToChange.categoryId,
+                    categoryToChange.currentStatus
+                  );
+                }}
+              >
+                Confirm
+              </button>
+              <button
+                className="bg-gray-300 text-gray-800 px-4 py-2 rounded-md"
+                onClick={() => setIsConfirmationOpen(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {selectedCategory && (
         <CreateCategoryOverlay
           onClose={() => setSelectedCategory(null)}

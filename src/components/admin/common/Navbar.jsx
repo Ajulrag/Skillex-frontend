@@ -27,9 +27,9 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <section className="flex gap-6">
+    <section className="flex gap-6  ">
       <div
-        className={`bg-[#2D2F31] min-h-screen ${
+        className={`bg-[#2D2F31] h-[89vh] ${
           open ? "w-52 rounded-md h-[100vh]" : "w-16 rounded-md h-[100vh]"
         } duration-500 text-gray-100 px-4`}
         onMouseEnter={() => setOpen(true)}
