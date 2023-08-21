@@ -14,11 +14,8 @@ const UploadCariculam = () => {
   };
 
   const addVideo = (sectionIndex) => {
-    const newVideo = {
-      videoFile: null,
-    };
     const updatedSections = [...sections];
-    updatedSections[sectionIndex].videos.push(newVideo);
+    updatedSections[sectionIndex].videos.push({ videoFile: null, key: Date.now() });
     setSections(updatedSections);
   };
 
@@ -74,15 +71,8 @@ const UploadCariculam = () => {
               <FontAwesomeIcon icon={faTrash} />
             </button>
           </div>
-          <button
-            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-1 px-2 rounded"
-            onClick={() => addVideo(sectionIndex)}
-          >
-            <FontAwesomeIcon icon={faPlus} />
-            <span className="ml-2">Add Video</span>
-          </button>
           {section.videos.map((video, videoIndex) => (
-            <div key={videoIndex} className="mt-2 flex items-center">
+            <div key={video.key} className="mt-2 flex items-center">
               <input
                 type="file"
                 accept="video/*"
@@ -99,6 +89,13 @@ const UploadCariculam = () => {
               </button>
             </div>
           ))}
+          <button
+            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-1 px-2 rounded mt-2"
+            onClick={() => addVideo(sectionIndex)}
+          >
+            <FontAwesomeIcon icon={faPlus} />
+            <span className="ml-2">Add Video</span>
+          </button>
         </div>
       ))}
     </div>
