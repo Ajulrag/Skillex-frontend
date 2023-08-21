@@ -404,3 +404,8 @@ form.sign-in-form {
 #sign-up-btn{
   padding: 0;
 }
+.password-strength {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+}

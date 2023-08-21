@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 const OverlayComponent = ({ onClose }) => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user)
-  console.log(user,"i am ");
   const [step, setStep] = useState(1);
   const [categories, setCategories] = useState([]); // Initialize as an empty array
   const [stepOneData, setStepOneData] = useState({

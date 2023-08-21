@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import zxcvbn from "zxcvbn";
 import './login.css'
 import Logo1 from '../../assets/images/login/log.svg'
 import Logo2 from '../../assets/images/login/register.svg'
 import axios from "axios";
-import { loginSchema,signUpSchema } from "../../formSchemas/userAuthSchema"; 
+import { loginSchema, signUpSchema } from "../../formSchemas/userAuthSchema";
 import { useFormik } from "formik";
-import toast,{ Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 // import { GoogleOAuthProvider,GoogleLogin } from '@react-oauth/google';
 
@@ -14,6 +15,10 @@ import { Link } from "react-router-dom";
 const Login = () => {
   const [tab, setTab] = useState('');
   const navigate = useNavigate()
+  const calculatePasswordStrength = (password) => {
+    const result = zxcvbn(password);
+    return result.score; // 0 to 4
+  };
   const signupInitials = {
     name: '',
     email: '',
@@ -29,13 +34,13 @@ const Login = () => {
         console.log(values);
         const response = await axios.post('/signup', {
           ...values
-        },{
+        }, {
           credentials: true
         })
-        if(response.status === 201) {
-          console.log(response.token,'i am token');
+        if (response.status === 201) {
+          console.log(response.token, 'i am token');
           action.resetForm()
-          navigate('/email-verify',{
+          navigate('/email-verify', {
             state: { email: values.email, name: values.name }
           })
         } else {
@@ -49,23 +54,23 @@ const Login = () => {
     }
   })
 
-  const  loginInitials = {
-    email:'',
-    password:'',
+  const loginInitials = {
+    email: '',
+    password: '',
   }
 
   const loginFormik = useFormik({
     initialValues: loginInitials,
     validationSchema: loginSchema,
-    
+
     onSubmit: async (values, action) => {
       try {
         const response = await axios.post(`/login`, {
           ...values
-        },{
+        }, {
           credentials: true
         })
-        if(response.data.message) {
+        if (response.data.message) {
           localStorage.setItem('userToken', `Bearer ${response.data?.results?.token}`)
           action.resetForm()
           navigate('/')
@@ -77,45 +82,45 @@ const Login = () => {
         toast.error(error.msg)
       }
     }
-});
+  });
 
   return (
     <>
-    <Toaster
-  position="top-center"
-  reverseOrder={false}
-/>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
       <div id='login' className={`containerH ${tab}`}>
         <div className="forms-container">
           <div className="signin-signup">
-            <form onSubmit={loginFormik.handleSubmit}  className="sign-in-form">
+            <form onSubmit={loginFormik.handleSubmit} className="sign-in-form">
               <h2 className="title">Sign in</h2>
               <div className="input-field">
                 <i className="fas fa-user"></i>
-                <input 
-                  type="email" 
-                  name="email" 
-                  onChange={loginFormik.handleChange} 
-                  value={loginFormik.values.email} 
+                <input
+                  type="email"
+                  name="email"
+                  onChange={loginFormik.handleChange}
+                  value={loginFormik.values.email}
                   placeholder="Username" />
               </div>
-                  <p className="text-rose-600 text-xs">{loginFormik.errors.email}</p>
-              
+              <p className="text-rose-600 text-xs">{loginFormik.errors.email}</p>
+
               <div className="input-field">
                 <i className="fas fa-lock"></i>
-                <input 
-                  type="password" 
-                  name="password" 
-                  onChange={loginFormik.handleChange} 
-                  value={loginFormik.values.password} 
+                <input
+                  type="password"
+                  name="password"
+                  onChange={loginFormik.handleChange}
+                  value={loginFormik.values.password}
                   placeholder="Password" />
               </div>
-                  <p className="text-rose-600 text-xs">{loginFormik.errors.password}</p>  
+              <p className="text-rose-600 text-xs">{loginFormik.errors.password}</p>
               <input type="submit" value="Login" className="btn solid" />
               {/* <p className="social-text">Or Sign in with social platforms</p> */}
               <div className="social-media">
                 <Link to='/forgot-password' className="mt-2 pt-5 text-green-500">Forgot password?</Link>
-            {/* <GoogleOAuthProvider clientId="1065305434408-l2vg8mbjbv5f9a265eaq0ji1ielrhiud.apps.googleusercontent.com  ">
+                {/* <GoogleOAuthProvider clientId="1065305434408-l2vg8mbjbv5f9a265eaq0ji1ielrhiud.apps.googleusercontent.com  ">
             <GoogleLogin
               onSuccess={credentialResponse => {
                 console.log(credentialResponse);
@@ -134,43 +139,54 @@ const Login = () => {
               <h2 className="title">Sign up</h2>
               <div className="input-field">
                 <i className="fas fa-user"></i>
-                <input 
-                type="text" 
-                name="name" 
-                onChange={signupFormik.handleChange} 
-                value={signupFormik.values.name} 
-                placeholder="Username" />
+                <input
+                  type="text"
+                  name="name"
+                  onChange={signupFormik.handleChange}
+                  value={signupFormik.values.name}
+                  placeholder="Username" />
               </div>
-                <p className="text-rose-600 text-xs">{signupFormik.touched.name && signupFormik.errors.name}</p>
+              <p className="text-rose-600 text-xs">{signupFormik.touched.name && signupFormik.errors.name}</p>
               <div className="input-field">
                 <i className="fas fa-envelope"></i>
-                <input 
-                type="email" 
-                name="email" 
-                onChange={signupFormik.handleChange} 
-                value={signupFormik.values.email} 
-                placeholder="Email" />
+                <input
+                  type="email"
+                  name="email"
+                  onChange={signupFormik.handleChange}
+                  value={signupFormik.values.email}
+                  placeholder="Email" />
               </div>
-                <p className="text-rose-600 text-xs">{signupFormik.touched.email && signupFormik.errors.email}</p>
+              <p className="text-rose-600 text-xs">{signupFormik.touched.email && signupFormik.errors.email}</p>
               <div className="input-field">
                 <i className="fas fa-lock"></i>
-                <input type="password" 
-                name="password" 
-                onChange={signupFormik.handleChange} 
-                value={signupFormik.values.password} 
-                placeholder="Password" />
+                <input type="password"
+                  name="password"
+                  onChange={signupFormik.handleChange}
+                  value={signupFormik.values.password}
+                  placeholder="Password" />
               </div>
-                <p className="text-rose-600 text-xs">{signupFormik.touched.password && signupFormik.errors.password}</p>
+              <p className="text-rose-600 text-xs">{signupFormik.touched.password && signupFormik.errors.password}</p>
+              {/* Add password strength indicator */}
+              <div className="password-strength">
+                Password Strength:{" "}
+                {[
+                  "Very Weak",
+                  "Weak",
+                  "Moderate",
+                  "Strong",
+                  "Very Strong"
+                ][calculatePasswordStrength(signupFormik.values.password)]}
+              </div>
               <div className="input-field">
                 <i className="fas fa-lock"></i>
-                <input 
-                type="password"
-                name="confirmPassword" 
-                onChange={signupFormik.handleChange} 
-                value={signupFormik.values.confirmPassword} 
-                placeholder="Re-enter password" />
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  onChange={signupFormik.handleChange}
+                  value={signupFormik.values.confirmPassword}
+                  placeholder="Re-enter password" />
               </div>
-                <p className="text-rose-600 text-xs">{signupFormik.touched.confirmPassword && signupFormik.errors.confirmPassword}</p>
+              <p className="text-rose-600 text-xs">{signupFormik.touched.confirmPassword && signupFormik.errors.confirmPassword}</p>
               <input type="submit" className="btn" value="Sign up" />
               {/* <p className="social-text">Or Sign up with social platforms</p>
               <GoogleOAuthProvider clientId="1065305434408-l2vg8mbjbv5f9a265eaq0ji1ielrhiud.apps.googleusercontent.com  ">
@@ -210,8 +226,8 @@ const Login = () => {
                 Sign in
               </button>
             </div>
-              <img src={Logo2} className="image" alt="" />
-              
+            <img src={Logo2} className="image" alt="" />
+
           </div>
         </div>
       </div>
