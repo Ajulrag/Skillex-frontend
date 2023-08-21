@@ -4,11 +4,10 @@ import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const UploadCariculam = () => {
   const [sections, setSections] = useState([]);
-  
 
   const addSection = () => {
     const newSection = {
-      sectionName: "Section Name", // Initial section name
+      sectionName: "Section Name",
       videos: [],
     };
     setSections([...sections, newSection]);
@@ -16,7 +15,7 @@ const UploadCariculam = () => {
 
   const addVideo = (sectionIndex) => {
     const newVideo = {
-      videoUrl: "",
+      videoFile: null,
     };
     const updatedSections = [...sections];
     updatedSections[sectionIndex].videos.push(newVideo);
@@ -29,10 +28,10 @@ const UploadCariculam = () => {
     setSections(updatedSections);
   };
 
-  const handleVideoUrlChange = (sectionIndex, videoIndex, event) => {
+  const handleVideoFileChange = (sectionIndex, videoIndex, event) => {
     const updatedSections = [...sections];
-    updatedSections[sectionIndex].videos[videoIndex].videoUrl =
-      event.target.value;
+    updatedSections[sectionIndex].videos[videoIndex].videoFile =
+      event.target.files[0];
     setSections(updatedSections);
   };
 
@@ -79,16 +78,16 @@ const UploadCariculam = () => {
             className="bg-green-500 hover:bg-green-600 text-white font-semibold py-1 px-2 rounded"
             onClick={() => addVideo(sectionIndex)}
           >
-            Add Video
+            <FontAwesomeIcon icon={faPlus} />
+            <span className="ml-2">Add Video</span>
           </button>
           {section.videos.map((video, videoIndex) => (
             <div key={videoIndex} className="mt-2 flex items-center">
               <input
-                type="text"
-                placeholder={`Video URL for Video ${videoIndex + 1}`}
-                value={video.videoUrl}
+                type="file"
+                accept="video/*"
                 onChange={(event) =>
-                  handleVideoUrlChange(sectionIndex, videoIndex, event)
+                  handleVideoFileChange(sectionIndex, videoIndex, event)
                 }
                 className="border rounded px-3 py-2 w-full"
               />
