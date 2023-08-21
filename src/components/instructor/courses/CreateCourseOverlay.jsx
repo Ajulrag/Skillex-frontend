@@ -17,12 +17,17 @@ const OverlayComponent = ({ onClose }) => {
     duration: "",
     category: "",
   });
+  const [stepThreeData, setStepThreeData] = useState({
+    price: "",
+    saleprice: "",
+  });
   const [imageFile, setImageFile] = useState(null);
   const [videoFile, setVideoFile] = useState(null);
   const [errors, setErrors] = useState({
     stepOne: {},
     stepTwo: {},
     stepThree: {},
+    stepFour: {}
   });
 
 
@@ -42,6 +47,12 @@ const OverlayComponent = ({ onClose }) => {
         [name]: value,
       }));
       newErrors.stepTwo = { ...newErrors.stepTwo, [name]: "" };
+    } else if (stepNumber === 3) {
+      setStepThreeData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+      newErrors.stepThree = { ...newErrors.stepThree, [name]: "" };
     }
 
     setErrors(newErrors);
@@ -112,6 +123,23 @@ const OverlayComponent = ({ onClose }) => {
     }
 
     setErrors({ ...errors, stepTwo: newErrors });
+    return isValid;
+  };
+  const validateStepThree = () => {
+    const newErrors = { ...errors.stepThree };
+    let isValid = true;
+
+    if (!stepThreeData.price) {
+      newErrors.price = "Course price is required.";
+      isValid = false;
+    }
+
+    if (!stepThreeData.saleprice) {
+      newErrors.saleprice = "Saleprice is required.";
+      isValid = false;
+    }
+
+    setErrors({ ...errors, stepThree: newErrors });
     return isValid;
   };
 
@@ -243,6 +271,57 @@ const OverlayComponent = ({ onClose }) => {
         );
       case 3:
         return (
+          <div className="space-y-4">
+            <input
+              type="number"
+              name="price"
+              placeholder="Course Price"
+              value={stepThreeData.price}
+              onChange={(e) => handleInputChange(e, 3)}
+              className={`border rounded px-3 py-2 w-full ${errors.stepThree.price ? "border-red-500" : ""
+                }`}
+            />
+            {errors.stepThree.price && (
+              <p className="text-red-500">{errors.stepThree.price}</p>
+            )}
+            <input
+              type="number"
+              name="saleprice"
+              placeholder="Sale Price"
+              value={stepThreeData.saleprice}
+              onChange={(e) => handleInputChange(e, 3)}
+              className={`border rounded px-3 py-2 w-full ${errors.stepThree.price ? "border-red-500" : ""
+                }`}
+            />
+            {errors.stepThree.saleprice && (
+              <p className="text-red-500">{errors.stepThree.saleprice}</p>
+            )}
+            <div className="flex justify-between">
+              <button
+                onClick={() => setStep(2)}
+                className="btn-secondary hover:text-teal-500"
+              >
+                Previous
+              </button>
+              <button
+                onClick={() => {
+                  if (validateStepThree()) {
+                    setStep(4);
+                  }
+                }}
+                className="h-10 w-20 px-5 text-gray-100 bg-teal-500 font-semibold border-none cursor-pointer shadow-lg rounded-lg relative hover:bg-white hover:text-teal-500"
+                style={{
+                  boxShadow:
+                    "inset 4px 4px 6px rgba(0, 0, 0, 0.1), inset -4px -4px 6px rgba(255, 255, 255, 0.5)",
+                }}
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        );
+      case 4:
+        return (
           <div className="space-y-6 p-8 xl:min-w-[100vh]">
             {imageFile && (
               <div className="flex flex-col items-center">
@@ -279,8 +358,8 @@ const OverlayComponent = ({ onClose }) => {
               />
             </label>
 
-            {errors.stepThree.image && (
-              <p className="text-red-500">{errors.stepThree.image}</p>
+            {errors.stepFour.image && (
+              <p className="text-red-500">{errors.stepFour.image}</p>
             )}
 
             {videoFile && (
@@ -323,8 +402,8 @@ const OverlayComponent = ({ onClose }) => {
               />
             </label>
 
-            {errors.stepThree.video && (
-              <p className="text-red-500">{errors.stepThree.video}</p>
+            {errors.stepFour.video && (
+              <p className="text-red-500">{errors.stepFour.video}</p>
             )}
 
             <div className="flex justify-between">
@@ -333,7 +412,7 @@ const OverlayComponent = ({ onClose }) => {
               </button>
               <div>
                 <button
-                  onClick={() => setStep(2)}
+                  onClick={() => setStep(3)}
                   className="btn-secondary hover:text-teal-500 mr-4"
                 >
                   Previous
@@ -369,6 +448,8 @@ const OverlayComponent = ({ onClose }) => {
       formData.append("description", stepOneData.description);
       formData.append("duration", stepTwoData.duration);
       formData.append("category", stepTwoData.category);
+      formData.append("price", stepThreeData.price);
+      formData.append("saleprice", stepThreeData.saleprice);
       formData.append("course_image", imageFile);
       formData.append("promotional_video", videoFile);
       formData.append("tutor", user._id);
@@ -378,7 +459,7 @@ const OverlayComponent = ({ onClose }) => {
           "Content-Type": "multipart/form-data",
         },
       });
-  
+
       if (response.status === 200) {
         console.log("Course submitted successfully");
         navigate('/instructor/create-courses');
