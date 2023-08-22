@@ -53,7 +53,7 @@ const Header = () => {
             <li><Link to='/about'>About</Link></li>
             <li><Link to='/Team'>Team</Link></li>
             <li><Link to='/pricing'>Pricing</Link></li>
-            <li><Link to='/contact'>Contact Us</Link></li>
+            <li><Link to=''>My Learning</Link></li>
 
             {/* Use conditional rendering to show "Become Instructor" or "Dashboard" */}
             {user && user.isInstructor ? (
