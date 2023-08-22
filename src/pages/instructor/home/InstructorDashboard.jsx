@@ -1,9 +1,10 @@
 import React from "react";
+import IDashboard from "../../../components/instructor/dashboard/IDashboard";
 
 const InstructorDashboard = () => {
     return(
         <>
-        <h1>I am instructor dashboard</h1>
+            <IDashboard />
         </>
     )
 }

@@ -18,7 +18,7 @@ const InstructorNavbar = () => {
     },
     { name: "Courses", link: "/instructor/courses", icon: GiBookmarklet, },
     { name: "Profile", link: "/instructor/profile", icon: CgProfile, },
-    { name: "Logout", link: "/logout", icon: CiLogout },
+    { name: "Home", link: "/", icon: CiLogout },
   ];
   const [open, setOpen] = useState(true);
 

@@ -1,25 +1,26 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 const UploadCariculam = () => {
   const [sections, setSections] = useState([]);
-  
 
   const addSection = () => {
     const newSection = {
-      sectionName: "Section Name", // Initial section name
+      sectionName: "",
       videos: [],
     };
     setSections([...sections, newSection]);
   };
 
   const addVideo = (sectionIndex) => {
-    const newVideo = {
-      videoUrl: "",
-    };
     const updatedSections = [...sections];
-    updatedSections[sectionIndex].videos.push(newVideo);
+    updatedSections[sectionIndex].videos.push({
+      title: "",
+      videoFile: null,
+      key: Date.now(),
+    });
     setSections(updatedSections);
   };
 
@@ -29,10 +30,15 @@ const UploadCariculam = () => {
     setSections(updatedSections);
   };
 
-  const handleVideoUrlChange = (sectionIndex, videoIndex, event) => {
+  const handleVideoTitleChange = (sectionIndex, videoIndex, event) => {
     const updatedSections = [...sections];
-    updatedSections[sectionIndex].videos[videoIndex].videoUrl =
-      event.target.value;
+    updatedSections[sectionIndex].videos[videoIndex].title = event.target.value;
+    setSections(updatedSections);
+  };
+
+  const handleVideoFileChange = (sectionIndex, videoIndex, event) => {
+    const updatedSections = [...sections];
+    updatedSections[sectionIndex].videos[videoIndex].videoFile = event.target.files[0];
     setSections(updatedSections);
   };
 
@@ -48,20 +54,58 @@ const UploadCariculam = () => {
     setSections(updatedSections);
   };
 
+  const submitData = async () => {
+    try {
+      const formData = new FormData();
+  
+      sections.forEach((section, sectionIndex) => {
+        formData.append(`curriculam[${sectionIndex}][section_title]`, section.sectionName);
+  
+        section.videos.forEach((video, videoIndex) => {
+          formData.append(`curriculam[${sectionIndex}][lectures][${videoIndex}][lecture_title]`, video.title);
+          formData.append(`curriculam[${sectionIndex}][lectures][${videoIndex}][video]`, video.videoFile);
+
+        });
+      });
+  
+      const response = await axios.post("/instructor/create-cariculam", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+  
+      console.log("Data sent to backend:", response.data);
+      // Handle success or any other response data from the backend
+    } catch (error) {
+      console.error("Error sending data:", error);
+      // Handle errors from the backend
+    }
+  };
+  
+
   return (
     <div className="p-4">
-      <button
-        className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-        onClick={addSection}
-      >
-        Add Section
-      </button>
+      <div className="flex justify-between">
+        <button
+          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
+          onClick={addSection}
+        >
+          Add Section
+        </button>
+        <button
+          className="bg-green-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
+          onClick={submitData}
+        >
+          Submit
+        </button>
+      </div>
+
       {sections.map((section, sectionIndex) => (
         <div key={sectionIndex} className="border p-4 my-4">
           <div className="flex justify-between items-center mb-2">
             <input
               type="text"
-              placeholder={`Section Name ${sectionIndex + 1}`}
+              placeholder={`Enter Section Name ${sectionIndex + 1}`}
               value={section.sectionName}
               onChange={(event) =>
                 handleSectionNameChange(sectionIndex, event)
@@ -75,22 +119,24 @@ const UploadCariculam = () => {
               <FontAwesomeIcon icon={faTrash} />
             </button>
           </div>
-          <button
-            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-1 px-2 rounded"
-            onClick={() => addVideo(sectionIndex)}
-          >
-            Add Video
-          </button>
           {section.videos.map((video, videoIndex) => (
-            <div key={videoIndex} className="mt-2 flex items-center">
+            <div key={video.key} className="mt-2 flex items-center">
               <input
                 type="text"
-                placeholder={`Video URL for Video ${videoIndex + 1}`}
-                value={video.videoUrl}
+                placeholder={`Enter Video Title ${videoIndex + 1}`}
+                value={video.title}
                 onChange={(event) =>
-                  handleVideoUrlChange(sectionIndex, videoIndex, event)
+                  handleVideoTitleChange(sectionIndex, videoIndex, event)
                 }
                 className="border rounded px-3 py-2 w-full"
+              />
+              <input
+                type="file"
+                accept="video/*"
+                onChange={(event) =>
+                  handleVideoFileChange(sectionIndex, videoIndex, event)
+                }
+                className="border rounded px-3 py-2 w-full ml-2"
               />
               <button
                 className="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-2 ml-2 rounded"
@@ -100,6 +146,13 @@ const UploadCariculam = () => {
               </button>
             </div>
           ))}
+          <button
+            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-1 px-2 rounded mt-2"
+            onClick={() => addVideo(sectionIndex)}
+          >
+            <FontAwesomeIcon icon={faPlus} />
+            <span className="ml-2">Add Video</span>
+          </button>
         </div>
       ))}
     </div>
