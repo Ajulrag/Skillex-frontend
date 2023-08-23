@@ -75,10 +75,8 @@ const UploadCariculam = () => {
       });
   
       console.log("Data sent to backend:", response.data);
-      // Handle success or any other response data from the backend
     } catch (error) {
       console.error("Error sending data:", error);
-      // Handle errors from the backend
     }
   };
   

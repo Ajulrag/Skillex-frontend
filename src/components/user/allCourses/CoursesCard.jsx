@@ -1,5 +1,4 @@
 import React,{useEffect, useState} from "react";
-import { coursesCard } from "../../../dummyData";
 import Search from "./Search";
 import axios from "axios";
 
