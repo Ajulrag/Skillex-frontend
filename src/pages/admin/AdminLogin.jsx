@@ -22,7 +22,8 @@ const AdminLogin = () => {
                 },{
                     credentials: true
                 })
-                if(response.status === 201){
+                if(response.status === 200){
+                  console.log(response);
                     localStorage.setItem('adminToken', response.data?.results?.token)
                     action.resetForm()
                     navigate('/admin')

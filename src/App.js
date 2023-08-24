@@ -32,36 +32,34 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' exact element={<UserLayout />} >
-            <Route path='' element={<Home />}/>,
-            <Route path='/about' element={<About />}/>,
-            <Route path='/allCourses' element={<CourseHome />}/>,
+            <Route path='' element={<Home />} />,
+            <Route path='/about' element={<About />} />,
+            <Route path='/allCourses' element={<CourseHome />} />,
           </Route>
 
           <Route path='/instructor' exact element={<InstructorLayout />} >
-          <Route path='' element={<InstructorDashboard />}/>,
-          <Route path='courses' element={<InstructorCourses/>} />,
-          <Route path='create-courses' element={<UploadCariculam/>} />,
-
-           
+            <Route path='' element={<InstructorDashboard />} />,
+            <Route path='courses' element={<InstructorCourses />} />,
+            <Route path='create-courses' element={<UploadCariculam />} />,
           </Route>
 
           <Route path='/verify-email/:token' element={<VerifyEmail />} />
-          <Route path='/email-verify'  element={<VerificationPage />} />
-          <Route path='/forgot-password' element={<ForgotPassword />}/>
-          <Route path='/reset/:id/:token' element={<ResetPassword />}/>
+          <Route path='/email-verify' element={<VerificationPage />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/reset/:id/:token' element={<ResetPassword />} />
           <Route path='/auth' exact element={<Login />} />
-          <Route path='/admin-auth' element={<AdminLogin/>}/>
-          
-          <Route path='/admin' exact element={<AdminLayout/>} >
-            <Route path='' element={<AdminHome />}/>,
-            <Route path='courses' element={<Courses/>} />,
-            <Route path='users' element={<Users/>} />,
-            <Route path='instructors' element={<Instructors/>} />,
-            <Route path='categories' element={<Categories/>} />,
-            <Route path='sales' element={<Sales/>} />,
-            <Route path='profile' element={<Profile/>} />
+          <Route path='/admin-auth' element={<AdminLogin />} />
+
+          <Route path='/admin' exact element={<AdminLayout />} >
+            <Route path='' element={<AdminHome />} />,
+            <Route path='courses' element={<Courses />} />,
+            <Route path='users' element={<Users />} />,
+            <Route path='instructors' element={<Instructors />} />,
+            <Route path='categories' element={<Categories />} />,
+            <Route path='sales' element={<Sales />} />,
+            <Route path='profile' element={<Profile />} />
           </Route>
-          
+
         </Routes>
       </Router>
     </>
