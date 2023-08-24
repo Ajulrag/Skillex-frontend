@@ -5,7 +5,6 @@ import Login from './pages/user/Login'
 import Home from './pages/user/Home';
 import About from './pages/user/About';
 import axios from 'axios';
-import { BASE_URL } from './config';
 import VerifyEmail from './pages/user/VerifyEmail';
 import VerificationPage from './pages/user/Email';
 import AdminLayout from './components/admin/layout/AdminLayout';
@@ -27,7 +26,7 @@ import UploadCariculam from './components/instructor/courses/UploadCariculam';
 
 
 function App() {
-  axios.defaults.baseURL = BASE_URL
+  axios.defaults.baseURL = process.env.REACT_APP_BASE_URL
   return (
     <>
       <Router>
