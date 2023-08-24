@@ -5,7 +5,7 @@ import axios from "axios";
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { id, token } = useParams();
+  const { id } = useParams();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

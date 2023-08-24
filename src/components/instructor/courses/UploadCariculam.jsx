@@ -57,28 +57,26 @@ const UploadCariculam = () => {
   const submitData = async () => {
     try {
       const formData = new FormData();
-  
+
       sections.forEach((section, sectionIndex) => {
         formData.append(`curriculam[${sectionIndex}][section_title]`, section.sectionName);
   
         section.videos.forEach((video, videoIndex) => {
           formData.append(`curriculam[${sectionIndex}][lectures][${videoIndex}][lecture_title]`, video.title);
           formData.append(`curriculam[${sectionIndex}][lectures][${videoIndex}][video]`, video.videoFile);
-
         });
       });
-  
+      formData.forEach((value, key) => {
+        console.log(key, value);
+      });
+      
       const response = await axios.post("/instructor/create-cariculam", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+       
       });
   
       console.log("Data sent to backend:", response.data);
-      // Handle success or any other response data from the backend
     } catch (error) {
       console.error("Error sending data:", error);
-      // Handle errors from the backend
     }
   };
   
