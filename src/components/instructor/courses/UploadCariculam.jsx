@@ -60,26 +60,27 @@ const UploadCariculam = () => {
 
       sections.forEach((section, sectionIndex) => {
         formData.append(`curriculam[${sectionIndex}][section_title]`, section.sectionName);
-  
+
         section.videos.forEach((video, videoIndex) => {
-          formData.append(`curriculam[${sectionIndex}][lectures][${videoIndex}][lecture_title]`, video.title);
-          formData.append(`curriculam[${sectionIndex}][lectures][${videoIndex}][video]`, video.videoFile);
+          formData.append(`curriculam[][lectures][][lecture_title]`, video.title);
+          formData.append(`curriculam[][lectures][][video]`, video.videoFile);
+
         });
       });
       formData.forEach((value, key) => {
         console.log(key, value);
       });
-      
+
       const response = await axios.post("/instructor/create-cariculam", formData, {
-       
+
       });
-  
+
       console.log("Data sent to backend:", response.data);
     } catch (error) {
       console.error("Error sending data:", error);
     }
   };
-  
+
 
   return (
     <div className="p-4">
