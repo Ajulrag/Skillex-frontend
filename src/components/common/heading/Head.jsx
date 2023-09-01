@@ -1,22 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setUserDetails } from "../../../redux/UserSlice"; // Update the import path
-
-
+import { setUserDetails } from "../../../redux/UserSlice";
+import UserProfile from "../profile/UserProfile"; // Import UserProfile component
 
 export const Head = () => {
   let { user } = useSelector((state) => state.user);
-  const [isDropdownOpen, setDropdownOpen] = useState(false); // Step 1
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isProfileOpen, setProfileOpen] = useState(false); // State for UserProfile
   const dispatch = useDispatch();
 
   console.log("redux", user);
 
   const handleIconClick = () => {
     setDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleProfileClick = () => {
+    setProfileOpen(true);
+    setDropdownOpen(false); // Close the dropdown when opening the profile
   };
 
   useEffect(() => {
@@ -32,16 +36,22 @@ export const Head = () => {
 
   const handleLogout = () => {
     console.log("appeared");
-    localStorage.removeItem('userToken');
+    localStorage.removeItem("userToken");
     dispatch(setUserDetails(null));
     setDropdownOpen(false);
-    
-  }
+  };
+
+  const handleCloseProfile = () => {
+    setProfileOpen(false);
+  };
 
   return (
-    <section
-      className={`head fixed w-full top-0 z-10 ${scrolled ? "hidden" : ""}`}
-    >
+    <section className={`head fixed w-full top-0 z-10 ${scrolled ? "hidden" : ""}`}>
+      {isProfileOpen && (
+        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
+          <UserProfile user={user} onClose={handleCloseProfile} />
+        </div>
+      )}
       <div className="container flexSB">
         <div className="logo">
           <h1>SKILLEX</h1>
@@ -59,9 +69,6 @@ export const Head = () => {
             </button>
           </div>
         </div>
-        {/* <i className='fab fa-facebook-f icon'></i>
-                    <i className='fab fa-instagram icon'></i>
-                    <i className='fab fa-twitter icon'></i> */}
         <div className="social">
           <div className="social">
             {user ? (
@@ -73,18 +80,21 @@ export const Head = () => {
                   <i id="ll" className="fas fa-user icon"></i>
                 </button>
                 {isDropdownOpen && (
-                  <div  className="absolute z-50 right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-lg">
+                  <div className="absolute z-50 right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-lg">
                     <ul>
                       <li>
-                        <Link
-                          to="/profile"
+                        <button
+                          onClick={handleProfileClick}
                           className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
                         >
                           Profile
-                        </Link>
+                        </button>
                       </li>
                       <li>
-                        <button onClick={handleLogout} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 w-full text-left">
+                        <button
+                          onClick={handleLogout}
+                          className="block px-4 py-2 text-gray-800 hover:bg-gray-100 w-full text-left"
+                        >
                           Logout
                         </button>
                       </li>
