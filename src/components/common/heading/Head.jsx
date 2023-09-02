@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setUserDetails } from "../../../redux/UserSlice";
-import UserProfile from "../profile/UserProfile"; // Import UserProfile component
+import UserProfile from "../profile/UserProfile"; 
+
 
 export const Head = () => {
   let { user } = useSelector((state) => state.user);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isProfileOpen, setProfileOpen] = useState(false); // State for UserProfile
+  const [isProfileOpen, setProfileOpen] = useState(false); 
   const dispatch = useDispatch();
 
   console.log("redux", user);

@@ -51,8 +51,8 @@ const Header = () => {
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/allCourses'>Courses</Link></li>
             <li><Link to='/about'>About</Link></li>
-            <li><Link to='/Team'>Team</Link></li>
-            <li><Link to='/pricing'>Pricing</Link></li>
+            {/* <li><Link to='/Team'>Team</Link></li> */}
+            {/* <li><Link to='/pricing'>Pricing</Link></li> */}
             <li><Link to=''>My Learning</Link></li>
 
             {/* Use conditional rendering to show "Become Instructor" or "Dashboard" */}
@@ -68,7 +68,7 @@ const Header = () => {
 
           </ul>
           <div className="start flex items-center">
-            <div className="button text-center py-5 min-w-[12rem] hidden md:block font-bold">GET STARTED</div>
+           <Link  ><div className="button text-center py-5 min-w-[12rem] hidden md:block font-bold">GO LIVE</div></Link>
             <button className="md:hidden btn" onClick={() => setClick(!click)}>
             {click ? <i className='fa fa-times'></i> : <i className='fa fa-bars'></i>}
           </button>
