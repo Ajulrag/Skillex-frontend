@@ -2,8 +2,14 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { useLocation,useNavigate } from "react-router-dom";
 
 const UploadCariculam = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const { courseId } = location.state;
+
   const [sections, setSections] = useState([]);
 
   const addSection = () => {
@@ -57,14 +63,13 @@ const UploadCariculam = () => {
   const submitData = async () => {
     try {
       const formData = new FormData();
-
+      formData.append("courseId", courseId);
       sections.forEach((section, sectionIndex) => {
         formData.append(`curriculam[${sectionIndex}][section_title]`, section.sectionName);
 
         section.videos.forEach((video, videoIndex) => {
           formData.append(`curriculam[][lectures][][lecture_title]`, video.title);
           formData.append(`curriculam[][lectures][][video]`, video.videoFile);
-
         });
       });
       formData.forEach((value, key) => {
@@ -76,6 +81,9 @@ const UploadCariculam = () => {
       });
 
       console.log("Data sent to backend:", response.data);
+      if(response.status === 200) {
+        navigate('/instructor/courses')
+      }
     } catch (error) {
       console.error("Error sending data:", error);
     }

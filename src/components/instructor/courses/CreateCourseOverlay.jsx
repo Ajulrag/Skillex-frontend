@@ -462,7 +462,8 @@ const OverlayComponent = ({ onClose }) => {
 
       if (response.status === 200) {
         console.log("Course submitted successfully");
-        navigate('/instructor/create-courses');
+        console.log(response.data.results.courseId,"COURSE ID");
+        navigate('/instructor/create-courses', { state: { courseId: response.data.results.courseId } });
       } else {
         console.error("Failed to submit course");
       }

@@ -1,9 +1,12 @@
 import React from "react";
+import CoursesHeader from "../../../components/admin/courses/CoursesHeader";
+import CourseTable from "../../../components/admin/courses/CourseTable";
 
 const Courses = () => {
     return(
         <>
-        <h1>I am Courses</h1>
+        <CoursesHeader />
+        <CourseTable />
         </>
     )
 }

@@ -17,7 +17,7 @@ const PrivateRoutes = ({ children }) => {
         if (!token) {
             navigate('/auth');
         } else {
-            console.log(token, "token");
+            // console.log(token, "token");
             const fetchProfile = async () => {
                 try {
                     const response = await axios.get('/getprofile', {
@@ -26,7 +26,7 @@ const PrivateRoutes = ({ children }) => {
                         },
                         // withCredentials: true
                     });
-                    console.log(response , "priba");
+                    // console.log(response , "priba");
                     const userDetails = response.data.user;
                     dispatch(setUserDetails(userDetails));
 

@@ -43,13 +43,13 @@ const Navbar = () => {
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
       >
-        <div className="py-3 flex justify-end">
+        {/* <div className="py-3 flex justify-end">
           <HiMenuAlt3
             size={26}
             className="cursor-pointer"
             onClick={() => setOpen(!open)}
           />
-        </div>
+        </div> */}
         <div className="mt-4 flex flex-col gap-4 relative">
           {menus?.map((menu, i) => (
             <Link
