@@ -23,6 +23,7 @@ import InstructorLayout from './components/instructor/layout/InstructorLayout';
 import InstructorDashboard from './pages/instructor/home/InstructorDashboard';
 import InstructorCourses from './pages/instructor/courses/InstructorCourses';
 import UploadCariculam from './components/instructor/courses/UploadCariculam';
+import CourseSingleView from './components/admin/courses/CourseSingleView.';
 
 
 function App() {
@@ -52,7 +53,8 @@ function App() {
 
           <Route path='/admin' exact element={<AdminLayout />} >
             <Route path='' element={<AdminHome />} />,
-            <Route path='courses' element={<Courses />} />,
+            <Route path='courses' element={<Courses />} />
+            <Route path='courses/getcourse/:courseId' element={<CourseSingleView />} />
             <Route path='users' element={<Users />} />,
             <Route path='instructors' element={<Instructors />} />,
             <Route path='categories' element={<Categories />} />,

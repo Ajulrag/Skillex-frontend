@@ -438,6 +438,7 @@ const OverlayComponent = ({ onClose }) => {
 
   const submitData = async () => {
     try {
+      console.log(user,"sdgsdfgd");
       if (!user) {
         console.error("User data is not available.");
         return;
