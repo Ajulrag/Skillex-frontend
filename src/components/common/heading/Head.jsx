@@ -21,7 +21,7 @@ export const Head = () => {
 
   const handleProfileClick = () => {
     setProfileOpen(true);
-    setDropdownOpen(false); // Close the dropdown when opening the profile
+    setDropdownOpen(false); 
   };
 
   useEffect(() => {

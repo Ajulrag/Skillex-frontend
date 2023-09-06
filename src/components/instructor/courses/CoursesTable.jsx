@@ -26,8 +26,10 @@ const CourseTable = () => {
               <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Course Title</th>
               <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Course Subtitle</th>
               <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Description</th>
-              <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Duration (hours)</th>
+              {/* <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Duration (hours)</th> */}
               <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Price</th>
+              <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Status</th>
+              <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Approved</th>
             </tr>
           </thead>
           <tbody>
@@ -35,9 +37,13 @@ const CourseTable = () => {
               <tr key={course._id}>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{course.course_title}</td>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{course.course_subtitle}</td>
-                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{course.description}</td>
-                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{course.duration}</td>
+                <td className="px-6 py-4 whitespace-no-wrap md:max-w-xs lg:max-w-sm xl:max-w-md 2xl:max-w-lg overflow-x-auto border-b border-gray-200">
+                  {course.description}
+                </td>
+                {/* <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{course.duration}</td> */}
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">${course.price}</td>
+                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{course.status}</td>
+                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{course.isApproved}</td>
               </tr>
             ))}
           </tbody>

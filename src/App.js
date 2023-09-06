@@ -24,6 +24,8 @@ import InstructorDashboard from './pages/instructor/home/InstructorDashboard';
 import InstructorCourses from './pages/instructor/courses/InstructorCourses';
 import UploadCariculam from './components/instructor/courses/UploadCariculam';
 import CourseSingleView from './components/admin/courses/CourseSingleView.';
+import PendingCourses from './components/admin/courses/PendingCourses';
+
 
 
 function App() {
@@ -55,6 +57,7 @@ function App() {
             <Route path='' element={<AdminHome />} />,
             <Route path='courses' element={<Courses />} />
             <Route path='courses/getcourse/:courseId' element={<CourseSingleView />} />
+            <Route path='courses/pendingcourses' element={<PendingCourses />} />
             <Route path='users' element={<Users />} />,
             <Route path='instructors' element={<Instructors />} />,
             <Route path='categories' element={<Categories />} />,

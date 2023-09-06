@@ -4,17 +4,23 @@ import DataTable from "react-data-table-component";
 import { toast } from "react-hot-toast";
 import { AiFillEye } from "react-icons/ai";
 import { Link } from 'react-router-dom';
+import Modal from 'react-modal';
+import ConfirmationModal from "./ConfirmationModel"; 
 
-const CourseTable = () => {
+Modal.setAppElement('#root');
+
+const PendingCourses = () => {
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState([])
+    const [data, setData] = useState([]);
+    const [selectedCourseId, setSelectedCourseId] = useState(null);
+    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
     useEffect(() => {
         fetchData();
     }, []);
 
     const fetchData = () => {
-        axios.get('/admin/get-courses')
+        axios.get('/admin/courses/pending-courses')
             .then((res) => {
                 const coursesWithSerialNo = res.data.results?.courses?.map(
                     (course, index) => ({
@@ -43,7 +49,7 @@ const CourseTable = () => {
             name: "Image",
             cell: (row) => (
                 <img
-                    src={process.env.REACT_APP_IMG_URL+data.course_image}
+                    src={process.env.REACT_APP_IMG_URL + row.course_image}
                     alt={row.course_title}  
                     style={{ width: "100px", height: "auto" }}
                 />
@@ -84,7 +90,17 @@ const CourseTable = () => {
                 <Link to={`/admin/courses/getcourse/${row._id}`}>
                     <AiFillEye className='text-3xl' />
                 </Link>
-
+            ),
+        },
+        {
+            name: 'Approve',
+            cell: (row) => (
+                <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
+                    onClick={() => openConfirmModal(row._id)}
+                >
+                    Approve
+                </button>
             ),
         },
     ];
@@ -100,13 +116,42 @@ const CourseTable = () => {
         try {
             const newStatus = currentStatus === "Active" ? "Inactive" : "Active";
             await axios.put(`/admin/courses/course/status/${courseId}?status=${newStatus}`);
-            fetchData(); // Refresh the data after updating the status
+            fetchData();
             toast.success(`Course status changed to ${newStatus}`);
         } catch (error) {
             console.error(error);
             toast.error("Failed to update course status");
         }
     };
+
+    const openConfirmModal = (courseId) => {
+        setSelectedCourseId(courseId);
+        setIsConfirmModalOpen(true);
+    };
+
+    const closeConfirmModal = () => {
+        setSelectedCourseId(null);
+        setIsConfirmModalOpen(false);
+    };
+
+    const confirmApprove = () => {
+        if (selectedCourseId) {
+            axios
+                .put(`/admin/courses/pendingcourse/approval/${selectedCourseId}`)
+                .then(() => {
+                    fetchData();
+                    toast.success('Course approved successfully');
+                })
+                .catch((error) => {
+                    console.error(error);
+                    toast.error('Failed to approve course');
+                })
+                .finally(() => {
+                    closeConfirmModal();
+                });
+        }
+    };
+
     if (loading) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -138,9 +183,19 @@ const CourseTable = () => {
             </div>
         );
     }
-    return (
-        <DataTable columns={column} data={data} pagination />
-    );
-};
 
-export default CourseTable;
+    return (
+        <div>
+            <DataTable columns={column} data={data} pagination />
+
+            {/* Use the ConfirmationModal component */}
+            <ConfirmationModal
+                isOpen={isConfirmModalOpen}
+                onRequestClose={closeConfirmModal}
+                onConfirm={confirmApprove}
+            />
+        </div>
+    );
+}
+
+export default PendingCourses;

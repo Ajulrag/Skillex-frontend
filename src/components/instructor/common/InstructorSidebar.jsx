@@ -14,7 +14,7 @@ const InstructorNavbar = () => {
       icon: MdOutlineDashboard,
     },
     { name: "Courses", link: "/instructor/courses", icon: GiBookmarklet },
-    { name: "Profile", link: "/instructor/profile", icon: CgProfile },
+    // { name: "Profile", link: "/instructor/profile", icon: CgProfile },
     { name: "Home", link: "/", icon: CiLogout },
   ];
 
