@@ -42,7 +42,8 @@ const CourseSingleView = () => {
     };
 
     return (
-        <div className='h-full w-full font-poppins'>
+        <div className='h-full w-full font-poppins relative'>
+            {/* <div className="absolute inset-0 bg-black transform rotate-45 "></div> */}
             {/* <ToastContainer position='top-center'></ToastContainer> */}
             {loading ? (
                 <p className="text-center text-gray-600">Loading...</p>

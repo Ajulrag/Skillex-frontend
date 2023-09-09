@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 import { AiFillEye } from "react-icons/ai";
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
-import ConfirmationModal from "./ConfirmationModel"; 
+import ConfirmationModal from "./ConfirmationModel";
 
 Modal.setAppElement('#root');
 
@@ -50,7 +50,7 @@ const PendingCourses = () => {
             cell: (row) => (
                 <img
                     src={process.env.REACT_APP_IMG_URL + row.course_image}
-                    alt={row.course_title}  
+                    alt={row.course_title}
                     style={{ width: "100px", height: "auto" }}
                 />
             ),
@@ -186,6 +186,10 @@ const PendingCourses = () => {
 
     return (
         <div>
+            <div className="text-center mt-8 mb-5">
+                <h1 className="text-3xl font-semibold underline text-gray-800">COURSES WAITING FOR APPROVAL</h1>
+            </div>
+
             <DataTable columns={column} data={data} pagination />
 
             {/* Use the ConfirmationModal component */}

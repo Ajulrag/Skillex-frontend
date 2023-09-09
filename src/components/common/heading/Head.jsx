@@ -86,7 +86,7 @@ export const Head = () => {
                       <li>
                         <button
                           onClick={handleProfileClick}
-                          className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                          className="block px-4 py-2 text-gray-800 hover:bg-gray-300 w-full text-left hover:text-[#1eb2a6]"
                         >
                           Profile
                         </button>
@@ -94,7 +94,7 @@ export const Head = () => {
                       <li>
                         <button
                           onClick={handleLogout}
-                          className="block px-4 py-2 text-gray-800 hover:bg-gray-100 w-full text-left"
+                          className="block px-4 py-2 text-gray-800 hover:bg-gray-300 w-full text-left hover:text-[#1eb2a6]"
                         >
                           Logout
                         </button>
