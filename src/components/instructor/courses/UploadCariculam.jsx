@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 import axios from "../../../utils/instance";
-import { useLocation,useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const UploadCariculam = () => {
   const location = useLocation();
@@ -10,85 +10,93 @@ const UploadCariculam = () => {
 
   const { courseId } = location.state;
 
-  const [sections, setSections] = useState([]);
+  const [sections, setSections] = useState([
+    {
+      sectionName: "",
+      videos: [{ title: "", videoFile: null, key: Date.now() }],
+    },
+  ]);
 
   const addSection = () => {
-    const newSection = {
-      sectionName: "",
-      videos: [],
-    };
-    setSections([...sections, newSection]);
+    setSections((prevSections) => [
+      ...prevSections,
+      { sectionName: "", videos: [{ title: "", videoFile: null, key: Date.now() }] },
+    ]);
   };
 
   const addVideo = (sectionIndex) => {
-    const updatedSections = [...sections];
-    updatedSections[sectionIndex].videos.push({
-      title: "",
-      videoFile: null,
-      key: Date.now(),
+    setSections((prevSections) => {
+      const updatedSections = [...prevSections];
+      updatedSections[sectionIndex].videos.push({
+        title: "",
+        videoFile: null,
+        key: Date.now(),
+      });
+      return updatedSections;
     });
-    setSections(updatedSections);
   };
 
   const handleSectionNameChange = (sectionIndex, event) => {
-    const updatedSections = [...sections];
-    updatedSections[sectionIndex].sectionName = event.target.value;
-    setSections(updatedSections);
+    setSections((prevSections) => {
+      const updatedSections = [...prevSections];
+      updatedSections[sectionIndex].sectionName = event.target.value;
+      return updatedSections;
+    });
   };
 
   const handleVideoTitleChange = (sectionIndex, videoIndex, event) => {
-    const updatedSections = [...sections];
-    updatedSections[sectionIndex].videos[videoIndex].title = event.target.value;
-    setSections(updatedSections);
+    setSections((prevSections) => {
+      const updatedSections = [...prevSections];
+      updatedSections[sectionIndex].videos[videoIndex].title = event.target.value;
+      return updatedSections;
+    });
   };
 
   const handleVideoFileChange = (sectionIndex, videoIndex, event) => {
-    const updatedSections = [...sections];
-    updatedSections[sectionIndex].videos[videoIndex].videoFile = event.target.files[0];
-    setSections(updatedSections);
+    setSections((prevSections) => {
+      const updatedSections = [...prevSections];
+      updatedSections[sectionIndex].videos[videoIndex].videoFile = event.target.files[0];
+      return updatedSections;
+    });
   };
 
   const removeSection = (sectionIndex) => {
-    const updatedSections = [...sections];
-    updatedSections.splice(sectionIndex, 1);
-    setSections(updatedSections);
+    setSections((prevSections) => {
+      const updatedSections = [...prevSections];
+      updatedSections.splice(sectionIndex, 1);
+      return updatedSections;
+    });
   };
 
   const removeVideo = (sectionIndex, videoIndex) => {
-    const updatedSections = [...sections];
-    updatedSections[sectionIndex].videos.splice(videoIndex, 1);
-    setSections(updatedSections);
+    setSections((prevSections) => {
+      const updatedSections = [...prevSections];
+      updatedSections[sectionIndex].videos.splice(videoIndex, 1);
+      return updatedSections;
+    });
   };
 
   const submitData = async () => {
     try {
-      const formData = new FormData();
-      formData.append("courseId", courseId);
-      sections.forEach((section, sectionIndex) => {
-        formData.append(`curriculam[${sectionIndex}][section_title]`, section.sectionName);
-
-        section.videos.forEach((video, videoIndex) => {
-          formData.append(`curriculam[][lectures][][lecture_title]`, video.title);
-          formData.append(`curriculam[][lectures][][video]`, video.videoFile);
-        });
+      console.log(sections,"==================");
+      const response = await axios.post("/instructor/create-cariculam", {
+        courseId,
+        curriculam: sections,
+      },{
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
-      formData.forEach((value, key) => {
-        console.log(key, value);
-      });
-
-      const response = await axios.post("/instructor/create-cariculam", formData, {
-
-      });
-
-      console.log("Data sent to backend:", response.data);
-      if(response.status === 200) {
-        navigate('/instructor/courses')
+  
+      console.log("Data sent to backend:", response);
+      if (response.status === 200) {
+        navigate('/instructor/courses');
       }
     } catch (error) {
       console.error("Error sending data:", error);
     }
   };
-
+  
 
   return (
     <div className="p-4">
