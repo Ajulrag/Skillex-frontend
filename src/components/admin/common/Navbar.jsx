@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-// import { HiMenuAlt3 } from "react-icons/hi";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { MdOutlineDashboard } from "react-icons/md";
 import { AiOutlineUser } from "react-icons/ai";
 import { GiBookmarklet, GiTeacher } from "react-icons/gi";
@@ -22,14 +21,14 @@ const Navbar = () => {
     { name: "Categories", link: "/admin/categories", icon: BiCategoryAlt },
     { name: "Sales", link: "/admin/sales", icon: AiOutlineMoneyCollect },
     { name: "Profile", link: "/admin/profile", icon: CgProfile },
-    
   ];
 
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
-    localStorage.removeItem("adminToken"); // Remove userToken from localStorage
-    navigate("/admin-auth"); // Navigate to admin-auth route
+    localStorage.removeItem("adminToken");
+    navigate("/admin-auth");
   };
 
   const [open, setOpen] = useState(false);
@@ -43,21 +42,18 @@ const Navbar = () => {
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
       >
-        {/* <div className="py-3 flex justify-end">
-          <HiMenuAlt3
-            size={26}
-            className="cursor-pointer"
-            onClick={() => setOpen(!open)}
-          />
-        </div> */}
         <div className="mt-4 flex flex-col gap-4 relative">
           {menus?.map((menu, i) => (
             <Link
               to={menu?.link}
               key={i}
-              className={` ${
+              className={`${
                 menu?.margin && "mt-5"
-              } group flex text-sm gap-3.5 font-medium p-2 hover:bg-white hover:text-[#1eb2a6] rounded-md`}
+              } group flex text-sm gap-3.5 font-medium p-2 hover:bg-white hover:text-[#1eb2a6] rounded-md ${
+                location.pathname === menu.link
+                  ? "bg-white text-[#1eb2a6]"
+                  : ""
+              }`}
             >
               <div>{React.createElement(menu?.icon, { size: "20" })}</div>
               <h2
@@ -74,7 +70,9 @@ const Navbar = () => {
           ))}
           <button
             onClick={handleLogout}
-            className="group flex text-sm gap-3.5 font-medium p-2 hover:bg-white hover:text-[#1eb2a6] rounded-md"
+            className={`group flex text-sm gap-3.5 font-medium p-2 hover:bg-white hover:text-[#1eb2a6] rounded-md ${
+              location.pathname === "/admin-auth" ? "bg-white text-[#1eb2a6]" : ""
+            }`}
           >
             <div>
               <CiLogout size={20} />
