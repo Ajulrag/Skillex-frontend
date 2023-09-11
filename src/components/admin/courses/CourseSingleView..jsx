@@ -57,7 +57,7 @@ const CourseSingleView = () => {
                                 <h2 className='text-xl leading-8 lg:text-3xl font-bold '>{data.course_title}</h2>
                                 <h2 className='text-lg lg:text-xl font-normal '>{data.course_subtitle}</h2>
                             </div>
-                            <div className="xl:shadow-xl bg-white xl:absolute relative xl:right-36 h-auto px-5 xl:py-8 w-full md:px-5 xl:w-96 flex-col flex gap-8 place-items-center">
+                            <div className="xl:shadow-xl bg-white xl:absolute relative right-[20px] h-auto px-5 xl:py-8 w-full md:px-5 xl:w-96 flex-col flex gap-8 place-items-center">
                                 <div className='p-3 rounded-md w-full h-60'>
                                     <video className='w-full h-full' src={process.env.REACT_APP_VID_URL + data.promotional_Video} controls></video>
                                 </div>
