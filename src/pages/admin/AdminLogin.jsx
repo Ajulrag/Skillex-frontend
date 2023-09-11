@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import toast,{ Toaster } from "react-hot-toast";
-import axios from "axios";
+import axios from "../../utils/instance";
 import { useNavigate } from 'react-router-dom';
 import { loginSchema } from '../../formSchemas/userAuthSchema';
 

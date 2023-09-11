@@ -4,7 +4,7 @@ import zxcvbn from "zxcvbn";
 import './login.css'
 import Logo1 from '../../assets/images/login/log.svg'
 import Logo2 from '../../assets/images/login/register.svg'
-import axios from "axios";
+import axios from "../../utils/instance";
 import { loginSchema, signUpSchema } from "../../formSchemas/userAuthSchema";
 import { useFormik } from "formik";
 import toast, { Toaster } from "react-hot-toast";
@@ -71,7 +71,8 @@ const Login = () => {
         }, {
           credentials: true
         })
-        if (response.data.message) {
+        console.log(response,"I am response");
+        if (response.status === 200) {
           localStorage.setItem('userToken', `Bearer ${response.data?.results?.token}`)
           action.resetForm()
           navigate('/')

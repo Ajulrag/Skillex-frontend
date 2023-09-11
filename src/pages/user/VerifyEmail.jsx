@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import axios from "../../utils/instance";
 import { toast, Toaster } from "react-hot-toast";
 
 const VerifyEmail = () => {

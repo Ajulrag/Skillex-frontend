@@ -1,5 +1,5 @@
 import "./becomeinstructor.css";
-import axios from "axios";
+import axios from "../../../utils/instance";
 import { useNavigate } from "react-router-dom";
 import { instructorSignUpSchema } from "../../../formSchemas/userAuthSchema";
 import { useFormik } from "formik";

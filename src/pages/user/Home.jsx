@@ -1,7 +1,7 @@
 import React,{useEffect,} from "react"
 import Hero from "../../components/user/hero/Hero"
 import AboutCard from "../../components/user/about/AboutCard"
-import axios from "axios"
+import axios from "../../utils/instance"
 import { setUserDetails} from "../../redux/UserSlice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -25,7 +25,7 @@ const Home = () => {
                          credentials: true
                      }
                  )
-                 console.log("hello",response.data.user);
+                 console.log("hello",response);
                  dispatch(setUserDetails(response.data.user))
      
              } catch (err) {

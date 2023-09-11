@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../../utils/instance";
 import ConfirmationDialog from "../Confirmation"; // Import the custom confirmation dialog component
 // ...
 const Profile = ({ user, onClose }) => {

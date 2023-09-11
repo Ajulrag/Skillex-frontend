@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../../utils/instance";
 import DataTable from "react-data-table-component";
 import { Toaster } from "react-hot-toast";
 import { toast } from "react-hot-toast";
@@ -61,9 +61,8 @@ const CategoriesTable = () => {
       name: "Toggle Status",
       cell: (row) => (
         <button
-          className={`${
-            row.status === "Active" ? "bg-green-500" : "bg-red-500"
-          } hover:bg-opacity-75 text-white font-bold py-1 px-2 rounded`}
+          className={`${row.status === "Active" ? "bg-green-500" : "bg-red-500"
+            } hover:bg-opacity-75 text-white font-bold py-1 px-2 rounded`}
           onClick={() => toggleConfirmation(row._id, row.status)}
         >
           {row.status === "Active" ? "Deactivate" : "Activate"}
@@ -127,6 +126,11 @@ const CategoriesTable = () => {
   return (
     <div className="bg-white p-4 rounded-lg shadow-md border border-[#] ml-3 mt-3 mr-3">
       <div className="mb-4">
+        <div className="text-center text-black">
+          <h1 className="text-3xl font-bold underline pb-3">
+            CATEGORY MANAGEMENT
+          </h1>
+        </div>
         <input
           type="text"
           className="w-full px-3 py-2 border border-gray-300 rounded-md"

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../../utils/instance";
 import DataTable from "react-data-table-component";
 import { toast } from "react-hot-toast";
 
@@ -110,7 +110,11 @@ const InstructorsTable = () => {
 
   return (
     <div className="p-4">
-      {/* Filter input */}
+      <div className="text-center text-black">
+        <h1 className="text-3xl font-bold underline pb-3">
+          INSTRUCTOR MANAGEMENT
+        </h1>
+      </div>
       <div className="mb-4">
         <input
           type="text"

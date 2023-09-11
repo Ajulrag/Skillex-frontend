@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
+import axios from "../../../utils/instance";
 import { useLocation,useNavigate } from "react-router-dom";
 
 const UploadCariculam = () => {

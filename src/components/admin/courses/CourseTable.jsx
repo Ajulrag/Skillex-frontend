@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../../utils/instance";
 import DataTable from "react-data-table-component";
 import { toast } from "react-hot-toast";
 import { AiFillEye } from "react-icons/ai";

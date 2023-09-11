@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from "react";
 import Search from "./Search";
-import axios from "axios";
+import axios from "../../../utils/instance";
 
 const CourseCard = () => {
   const [courses,setCourses] = useState([]);

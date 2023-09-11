@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../../utils/instance";
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { toast } from "react-hot-toast";
@@ -79,7 +79,7 @@ const UsersTable = () => {
   const handleFilter = (event) => {
     setSearchTerm(event.target.value.toLowerCase());
     const newData = filterData.filter((row) =>
-      row.name.toLowerCase().includes(searchTerm) 
+      row.name.toLowerCase().includes(searchTerm)
     );
     setData(newData);
   };
@@ -103,19 +103,25 @@ const UsersTable = () => {
   };
   return (
     <div className="p-4">
-      {/* Filter input */}
+      <div className="text-center text-black">
+        <h1 className="text-3xl font-bold underline pb-3">
+          USER MANAGEMENT
+        </h1>
+      </div>
+
       <div className="mb-4">
         <input
           type="text"
           className="w-full px-3 py-2 border border-gray-300 rounded-md"
           placeholder="Search..."
-          value={searchTerm} // Use searchTerm as value
+          value={searchTerm}
           onChange={handleFilter}
         />
       </div>
+
       <DataTable columns={column} data={data} pagination />
 
-      {/* Render the confirmation dialog */}
+
       {isConfirmationOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50 h-48">
           <div className="bg-white p-4 rounded-lg shadow-md ">

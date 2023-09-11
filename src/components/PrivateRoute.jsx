@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../utils/instance";
 import { setUserDetails } from "../redux/UserSlice";
 import { useDispatch } from "react-redux";
 
