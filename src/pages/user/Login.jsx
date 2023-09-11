@@ -47,9 +47,10 @@ const Login = () => {
           toast.error(response.data.msg)
         }
       } catch (error) {
-        console.log(error);
-        toast.error('Server Error')
-        navigate('/signup')
+        if(error.response.status === 404) {
+          console.log(error);
+          toast.error("Something went wrong,Please try again later!!!")
+        }
       }
     }
   })
@@ -78,8 +79,10 @@ const Login = () => {
           toast.error(response.data.msg)
         }
       } catch (error) {
-        console.log(error);
-        toast.error(error.msg)
+        if(error.response.status === 404) {
+          console.log(error);
+          toast.error("Something went wrong,Please try again later!!!")
+        }
       }
     }
   });
