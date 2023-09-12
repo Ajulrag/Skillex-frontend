@@ -68,7 +68,7 @@ const Header = () => {
 
           </ul>
           <div className="start flex items-center">
-           <Link  ><div className="button text-center py-5 min-w-[12rem] hidden md:block font-bold">GO LIVE</div></Link>
+           <Link  to='/join-meet'><div className="button text-center py-5 min-w-[12rem] hidden md:block font-bold">GO LIVE</div></Link>
             <button className="md:hidden btn" onClick={() => setClick(!click)}>
             {click ? <i className='fa fa-times'></i> : <i className='fa fa-bars'></i>}
           </button>

@@ -25,6 +25,7 @@ import InstructorCourses from './pages/instructor/courses/InstructorCourses';
 import UploadCariculam from './components/instructor/courses/UploadCariculam';
 import CourseSingleView from './components/admin/courses/CourseSingleView.';
 import PendingCourses from './components/admin/courses/PendingCourses';
+import CreateMeeting from './components/user/meetings/CreateMeeting';
 
 
 
@@ -52,6 +53,7 @@ function App() {
           <Route path='/reset/:id/:token' element={<ResetPassword />} />
           <Route path='/auth' exact element={<Login />} />
           <Route path='/admin-auth' element={<AdminLogin />} />
+          <Route path='/join-meet' element={<CreateMeeting />} />
 
           <Route path='/admin' exact element={<AdminLayout />} >
             <Route path='' element={<AdminHome />} />,
