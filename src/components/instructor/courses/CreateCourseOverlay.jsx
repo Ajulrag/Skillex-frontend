@@ -5,9 +5,12 @@ import { useNavigate } from "react-router-dom";
 
 const OverlayComponent = ({ onClose }) => {
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.user)
+  const { user } = useSelector((state) => state.user);
+  const tutor_name = user.name
+  const tutor_email = user.email
+
   const [step, setStep] = useState(1);
-  const [categories, setCategories] = useState([]); // Initialize as an empty array
+  const [categories, setCategories] = useState([]);
   const [stepOneData, setStepOneData] = useState({
     course_title: "",
     course_subtitle: "",
@@ -27,9 +30,9 @@ const OverlayComponent = ({ onClose }) => {
     stepOne: {},
     stepTwo: {},
     stepThree: {},
-    stepFour: {}
+    stepFour: {},
   });
-
+  
 
   const handleInputChange = (e, stepNumber) => {
     const { name, value } = e.target;
@@ -125,6 +128,7 @@ const OverlayComponent = ({ onClose }) => {
     setErrors({ ...errors, stepTwo: newErrors });
     return isValid;
   };
+
   const validateStepThree = () => {
     const newErrors = { ...errors.stepThree };
     let isValid = true;
@@ -135,7 +139,7 @@ const OverlayComponent = ({ onClose }) => {
     }
 
     if (!stepThreeData.saleprice) {
-      newErrors.saleprice = "Saleprice is required.";
+      newErrors.saleprice = "Sale price is required.";
       isValid = false;
     }
 
@@ -154,8 +158,9 @@ const OverlayComponent = ({ onClose }) => {
               placeholder="Course Title"
               value={stepOneData.course_title}
               onChange={(e) => handleInputChange(e, 1)}
-              className={`border rounded px-3 py-2 w-full ${errors.stepOne.course_title ? "border-red-500" : ""
-                }`}
+              className={`border rounded px-3 py-2 w-full ${
+                errors.stepOne.course_title ? "border-red-500" : ""
+              }`}
             />
             {errors.stepOne.course_title && (
               <p className="text-red-500">{errors.stepOne.course_title}</p>
@@ -166,11 +171,14 @@ const OverlayComponent = ({ onClose }) => {
               placeholder="Subtitle"
               value={stepOneData.course_subtitle}
               onChange={(e) => handleInputChange(e, 1)}
-              className={`border rounded px-3 py-2 w-full ${errors.stepOne.course_subtitle ? "border-red-500" : ""
-                }`}
+              className={`border rounded px-3 py-2 w-full ${
+                errors.stepOne.course_subtitle ? "border-red-500" : ""
+              }`}
             />
             {errors.stepOne.course_subtitle && (
-              <p className="text-red-500">{errors.stepOne.course_subtitle}</p>
+              <p className="text-red-500">
+                {errors.stepOne.course_subtitle}
+              </p>
             )}
             <textarea
               type="text"
@@ -178,8 +186,9 @@ const OverlayComponent = ({ onClose }) => {
               placeholder="Description"
               value={stepOneData.description}
               onChange={(e) => handleInputChange(e, 1)}
-              className={`border rounded px-3 py-2 w-full ${errors.stepOne.description ? "border-red-500" : ""
-                }`}
+              className={`border rounded px-3 py-2 w-full ${
+                errors.stepOne.description ? "border-red-500" : ""
+              }`}
               rows="3"
             />
             {errors.stepOne.description && (
@@ -222,8 +231,9 @@ const OverlayComponent = ({ onClose }) => {
               placeholder="Course Duration"
               value={stepTwoData.duration}
               onChange={(e) => handleInputChange(e, 2)}
-              className={`border rounded px-3 py-2 w-full ${errors.stepTwo.duration ? "border-red-500" : ""
-                }`}
+              className={`border rounded px-3 py-2 w-full ${
+                errors.stepTwo.duration ? "border-red-500" : ""
+              }`}
             />
             {errors.stepTwo.duration && (
               <p className="text-red-500">{errors.stepTwo.duration}</p>
@@ -232,13 +242,14 @@ const OverlayComponent = ({ onClose }) => {
               name="category"
               value={stepTwoData.category}
               onChange={(e) => handleInputChange(e, 2)}
-              className={`border rounded px-3 py-2 w-full ${errors.stepTwo.category ? "border-red-500" : ""
-                }`}
+              className={`border rounded px-3 py-2 w-full ${
+                errors.stepTwo.category ? "border-red-500" : ""
+              }`}
             >
               <option value="">Select a Category</option>
-              {categories.map((category) => (  // <-- This is where the error is occurring
-                <option key={category._id} value={category._id}> {/* Make sure you are using the correct property */}
-                  {category.category_name} {/* Make sure you are using the correct property */}
+              {categories.map((category) => (
+                <option key={category._id} value={category._id}>
+                  {category.category_name}
                 </option>
               ))}
             </select>
@@ -278,8 +289,9 @@ const OverlayComponent = ({ onClose }) => {
               placeholder="Course Price"
               value={stepThreeData.price}
               onChange={(e) => handleInputChange(e, 3)}
-              className={`border rounded px-3 py-2 w-full ${errors.stepThree.price ? "border-red-500" : ""
-                }`}
+              className={`border rounded px-3 py-2 w-full ${
+                errors.stepThree.price ? "border-red-500" : ""
+              }`}
             />
             {errors.stepThree.price && (
               <p className="text-red-500">{errors.stepThree.price}</p>
@@ -290,8 +302,9 @@ const OverlayComponent = ({ onClose }) => {
               placeholder="Sale Price"
               value={stepThreeData.saleprice}
               onChange={(e) => handleInputChange(e, 3)}
-              className={`border rounded px-3 py-2 w-full ${errors.stepThree.price ? "border-red-500" : ""
-                }`}
+              className={`border rounded px-3 py-2 w-full ${
+                errors.stepThree.price ? "border-red-500" : ""
+              }`}
             />
             {errors.stepThree.saleprice && (
               <p className="text-red-500">{errors.stepThree.saleprice}</p>
@@ -325,7 +338,6 @@ const OverlayComponent = ({ onClose }) => {
           <div className="space-y-6 p-8 xl:min-w-[100vh]">
             {imageFile && (
               <div className="flex flex-col items-center">
-                {/* <h3 className="text-lg font-semibold mb-2">Uploaded Image Preview:</h3> */}
                 <img
                   src={URL.createObjectURL(imageFile)}
                   alt="Uploaded"
@@ -364,7 +376,6 @@ const OverlayComponent = ({ onClose }) => {
 
             {videoFile && (
               <div className="flex flex-col items-center mt-4">
-                {/* <h3 className="text-lg font-semibold mb-2">Uploaded Video Preview:</h3> */}
                 <video
                   controls
                   className="max-w-[50vh] max-h-[20vh] rounded-lg shadow-md"
@@ -438,11 +449,11 @@ const OverlayComponent = ({ onClose }) => {
 
   const submitData = async () => {
     try {
-      console.log(user,"sdgsdfgd");
       if (!user) {
         console.error("User data is not available.");
         return;
       }
+      
       const formData = new FormData();
       formData.append("course_title", stepOneData.course_title);
       formData.append("course_subtitle", stepOneData.course_subtitle);
@@ -451,20 +462,23 @@ const OverlayComponent = ({ onClose }) => {
       formData.append("category", stepTwoData.category);
       formData.append("price", stepThreeData.price);
       formData.append("saleprice", stepThreeData.saleprice);
-      formData.append("course_image", imageFile);
-      formData.append("promotional_video", videoFile);
-      formData.append("tutor", user._id);
-
+      formData.append("course_image", imageFile); // Upload image
+      formData.append("promotional_video", videoFile); // Upload video
+      formData.append("tutor_name", tutor_name); // Include tutor_name
+      formData.append("tutor_email", tutor_email); // Include tutor_email
+  
       const response = await axios.post("/instructor/submit-course", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-
+  
       if (response.status === 200) {
         console.log("Course submitted successfully");
-        console.log(response.data.results.courseId,"COURSE ID");
-        navigate('/instructor/create-courses', { state: { courseId: response.data.results.courseId } });
+        console.log(response.data.results.courseId, "COURSE ID");
+        navigate("/instructor/create-courses", {
+          state: { courseId: response.data.results.courseId },
+        });
       } else {
         console.error("Failed to submit course");
       }
@@ -472,6 +486,7 @@ const OverlayComponent = ({ onClose }) => {
       console.error("Error submitting course:", error);
     }
   };
+  
 
   return (
     <div className="overlay">
