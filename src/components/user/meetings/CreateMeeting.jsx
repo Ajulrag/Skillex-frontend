@@ -9,7 +9,7 @@ const CreateMeeting = () => {
 
                 <JaaSMeeting
                     appId="vpaas-magic-cookie-5814ee87e8c248b5b1800add388455d3"
-                     
+                     roomName="SKILLEX"
                     // jwt = { YOUR_VALID_JWT }
                     configOverwrite={{
                         disableThirdPartyRequests: true,

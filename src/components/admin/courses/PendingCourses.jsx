@@ -49,7 +49,7 @@ const PendingCourses = () => {
             name: "Image",
             cell: (row) => (
                 <img
-                    src={process.env.REACT_APP_IMG_URL + row.course_image}
+                    src={row.course_image}
                     alt={row.course_title}
                     style={{ width: "100px", height: "auto" }}
                 />

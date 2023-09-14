@@ -26,6 +26,7 @@ import UploadCariculam from './components/instructor/courses/UploadCariculam';
 import CourseSingleView from './components/admin/courses/CourseSingleView.';
 import PendingCourses from './components/admin/courses/PendingCourses';
 import CreateMeeting from './components/user/meetings/CreateMeeting';
+import CourseDetailPage from './components/user/allCourses/CourseDetailPage';
 
 
 
@@ -39,6 +40,7 @@ function App() {
             <Route path='' element={<Home />} />,
             <Route path='/about' element={<About />} />,
             <Route path='/allCourses' element={<CourseHome />} />,
+            <Route path='/single-course/:courseId' element={<CourseDetailPage />} />,
           </Route>
 
           <Route path='/instructor' exact element={<InstructorLayout />} >

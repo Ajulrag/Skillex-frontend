@@ -16,6 +16,7 @@ const CourseTable = () => {
     const fetchData = () => {
         axios.get('/admin/get-courses')
             .then((res) => {
+                console.log(res);
                 const coursesWithSerialNo = res.data.results?.courses?.map(
                     (course, index) => ({
                         ...course,
@@ -43,7 +44,7 @@ const CourseTable = () => {
             name: "Image",
             cell: (row) => (
                 <img
-                    src={process.env.REACT_APP_IMG_URL+data.course_image}
+                src={row.course_image}
                     alt={row.course_title}  
                     style={{ width: "100px", height: "auto" }}
                 />

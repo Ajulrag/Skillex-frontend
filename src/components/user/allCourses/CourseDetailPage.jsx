@@ -27,7 +27,7 @@ const CourseSingleView = () => {
 
     const fetchData = (courseId) => {
         axios
-            .get(`/admin/courses/getcourse/${courseId}`)
+            .get(`/sigle-course/${courseId}`)
             .then((res) => {
                 const courseData = res.data.results.course;
                 console.log(data);

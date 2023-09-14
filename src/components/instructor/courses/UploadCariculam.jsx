@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 import axios from "../../../utils/instance";
 import { useLocation, useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid'; // Import uuid for generating unique keys
 
 const UploadCariculam = () => {
   const location = useLocation();
@@ -13,25 +14,26 @@ const UploadCariculam = () => {
   const [sections, setSections] = useState([
     {
       sectionName: "",
-      videos: [{ title: "", videoFile: null, key: Date.now() }],
+      videos: [{ title: "", videoFile: null, key: uuidv4() }],
     },
   ]);
 
   const addSection = () => {
     setSections((prevSections) => [
       ...prevSections,
-      { sectionName: "", videos: [{ title: "", videoFile: null, key: Date.now() }] },
+      { sectionName: "", videos: [{ title: "", videoFile: null, key: uuidv4() }] },
     ]);
   };
 
   const addVideo = (sectionIndex) => {
     setSections((prevSections) => {
       const updatedSections = [...prevSections];
-      updatedSections[sectionIndex].videos.push({
+      const newVideo = {
         title: "",
         videoFile: null,
-        key: Date.now(),
-      });
+        key: uuidv4(), // Use uuid to generate a unique key
+      };
+      updatedSections[sectionIndex].videos.push(newVideo);
       return updatedSections;
     });
   };
@@ -78,11 +80,34 @@ const UploadCariculam = () => {
 
   const submitData = async () => {
     try {
-      console.log(sections,"==================");
-      const response = await axios.post("/instructor/create-cariculam", {
+      // Prepare the data to be sent to the server
+      const requestData = {
         courseId,
-        curriculam: sections,
-      },{
+        sections: sections.map((section) => ({
+          sectionName: section.sectionName,
+          videos: section.videos.map((video) => ({
+            title: video.title,
+            videoFile: video.videoFile,
+          })),
+        })),
+      };
+  
+      const formData = new FormData();
+  
+      // Append the courseId to the formData
+      formData.append('courseId', courseId);
+  
+      // Append each section and its videos as form data
+      requestData.sections.forEach((section, sectionIndex) => {
+        formData.append(`sections[${sectionIndex}][sectionName]`, section.sectionName);
+  
+        section.videos.forEach((video, videoIndex) => {
+          formData.append(`sections[${sectionIndex}][videos][${videoIndex}][title]`, video.title);
+          formData.append(`sections[${sectionIndex}][videos][${videoIndex}][videoFile]`, video.videoFile);
+        });
+      });
+  
+      const response = await axios.post("/instructor/create-cariculam", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
